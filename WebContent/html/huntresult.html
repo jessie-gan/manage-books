@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>图书管理系统</title>
+		<link rel="icon" href="../img/1176978.png"/>
+		<link rel="stylesheet" href="../css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../css/stuperson.css" />
+		<link rel="stylesheet" href="../css/huntresult.css" />
+        <link rel="stylesheet" type="text/css" href="../css/common.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="../css/commom.css" />
+	</head>
+	<body>
+		<div class="header">
+			<div class="head">
+				<div class="headleft">
+					<p class="title_font">图书管理系统</p>
+				</div>
+				<div class="headright">
+				</div>
+			</div>	
+		</div>
+		<div class="person">
+			<div class="person_div">
+				<div class="right">
+					<span class="glyphicon glyphicon-map-marker guide"></span>&nbsp;<a href="studenthunt.html" style="color:#23527c;">首页</a>&nbsp;/&nbsp;<span></span>搜索图书结果:关键字&nbsp;<span id="important" class="improt">"关键字"</span>
+				</div>
+				<div class="float">
+					<a href="totallend.html"><img class="imgmail" src="../img/mail.png"/></a><span class="sz_mailspan">欢迎您<span id="name"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span id="exit" style="color:"><span class="glyphicon glyphicon-log-out"></span>&nbsp;退出</span></span>
+				</div>
+			</div>
+		</div>
+		<div class="nowlend">
+			<div class="lendlist form-group" style="font-size:13px;background:none;">
+				<table class="table table-bordered table-hover table-condensed ">
+					<tr title="1">
+						<th>序号</th>
+						<th>图书编号</th>
+						<th>图书名</th>
+						<th>作者</th>
+						<th>出版社</th>
+						<th>状态</th>
+						<th>操作</th>
+					</tr>
+					<tbody id="table">
+					</tbody>
+				</table>
+				<div class="nowlend enddiv" style="font-size:12px;">
+					<input type="button" class="btn btn-default btn-sm btnend" value="当前第"/>
+					<input type="button" class="btn btn-default btn-sm btnend" id="currentPage" value="1"/>
+					<input type="button" class="btn btn-default btn-sm btnend" value="页"/>
+					<input type="button" class="btn btn-default btn-sm btnend" value="总共"/>
+					<input type="button" class="btn btn-default btn-sm btnend" id="totalPage" value="3"/>
+					<input type="button" class="btn btn-default btn-sm btnend" value="页"/>
+					<input type="button" class="btn btn-default btn-sm btnend" id="upPage" value="上一页"/>
+					<input type="button" class="btn btn-default btn-sm btnend" id="nextPage" value="下一页"/>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../js/jquery-1.7.2.js"></script>
+	<!-- <script type="text/javascript" src="../js/bootstrap.min.js"></script> -->
+	<script type="text/javascript" src="../js/Stucommom.js"></script>
+	<script type="text/javascript" src="../js/stu-exit.js" ></script>
+	<script type="text/javascript" src="../js/huntresult.js"></script>
+</html>

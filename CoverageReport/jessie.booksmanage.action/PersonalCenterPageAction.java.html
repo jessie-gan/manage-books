@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>PersonalCenterPageAction.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">test</a> &gt; <a href="index.source.html" class="el_package">jessie.booksmanage.action</a> &gt; <span class="el_source">PersonalCenterPageAction.java</span></div><h1>PersonalCenterPageAction.java</h1><pre class="source lang-java linenums">package jessie.booksmanage.action;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.Namespace;
+import org.apache.struts2.convention.annotation.ParentPackage;
+import org.apache.struts2.convention.annotation.Result;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
+import jessie.booksmanage.pojo.User;
+import jessie.booksmanage.service.BookService;
+import jessie.booksmanage.service.RecordService;
+import jessie.booksmanage.service.UserService;
+import jessie.booksmanage.utils.SendToJson;
+@Controller
+@ParentPackage(&quot;jessie.booksmanage&quot;)
+@Namespace(&quot;/personalCenter&quot;)
+@Scope(&quot;request&quot;)
+<span class="nc" id="L28">public class PersonalCenterPageAction {</span>
+	private String setPsw;
+	private String oldPsw;
+	private String setUserName;
+	private String setRealName;
+	private String setSex;
+	private String setEmail;
+	private String setMajor;
+	private String setTel;
+	private String setGrade;
+	@Autowired
+	UserService userService;
+	@Autowired
+	RecordService recordService;
+	@Autowired
+	BookService bookService;
+	@Action(value = &quot;modifyPsw&quot;, results = { @Result(name = &quot;success&quot;, type = &quot;json&quot; )})
+	public String modifyPsw(){
+<span class="nc" id="L46">		Map&lt;String, Object&gt; map = new HashMap&lt;String,Object&gt;();</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">		if(setPsw != &quot;&quot;){</span>
+<span class="nc" id="L48">			setPsw = setPsw.trim();</span>
+		}
+<span class="nc" id="L50">		HttpServletRequest request = ServletActionContext.getRequest();</span>
+<span class="nc" id="L51">		HttpSession session = request.getSession();</span>
+<span class="nc" id="L52">		String stuNum = (String)session.getAttribute(&quot;stuNum&quot;);</span>
+<span class="nc" id="L53">		User user = userService.getUserByStudentNum(stuNum);</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">		if(user.getPassword().equals(oldPsw)){</span>
+<span class="nc" id="L55">			userService.modifyUserPassword(setPsw);</span>
+<span class="nc" id="L56">			map.put(&quot;msg&quot;, &quot;修改密码成功&quot;);</span>
+<span class="nc" id="L57">			SendToJson.send(ServletActionContext.getResponse(), map);</span>
+<span class="nc" id="L58">			return &quot;success&quot;;</span>
+		}else{
+<span class="nc" id="L60">			map.put(&quot;msg&quot;, &quot;原密码错误&quot;);</span>
+<span class="nc" id="L61">			SendToJson.send(ServletActionContext.getResponse(), map);</span>
+<span class="nc" id="L62">			return &quot;error&quot;;</span>
+		}	
+	}
+	@Action(value = &quot;modifyDetails&quot;, results = { @Result(name = &quot;success&quot;, type = &quot;json&quot; )})
+	public String modifyDetails(){
+<span class="nc" id="L67">		HttpServletResponse response = ServletActionContext.getResponse();</span>
+<span class="nc" id="L68">		Map&lt;String, Object&gt; map = new HashMap&lt;String,Object&gt;();</span>
+<span class="nc" id="L69">		Map&lt;String, Object&gt; tmap = new HashMap&lt;String,Object&gt;();</span>
+		//先判断填入的信息是否符合要求
+<span class="nc" id="L71">		tmap = userService.modifyUserDetails(setUserName, setRealName, setSex, setEmail,setTel, setGrade, setMajor);</span>
+		//User user = (User)tmap.get(&quot;user&quot;);
+<span class="nc" id="L73">		map.put(&quot;msg&quot;, &quot;修改成功&quot;);</span>
+<span class="nc" id="L74">		SendToJson.send(response, map);</span>
+<span class="nc" id="L75">		return &quot;success&quot;;</span>
+	}
+	public String getSetTel() {
+<span class="nc" id="L78">		return setTel;</span>
+	}
+	public void setSetTel(String setTel) {
+<span class="nc" id="L81">		this.setTel = setTel;</span>
+<span class="nc" id="L82">	}</span>
+	public String getSetPsw() {
+<span class="nc" id="L84">		return setPsw;</span>
+	}
+	public void setSetPsw(String setPsw) {
+<span class="nc" id="L87">		this.setPsw = setPsw;</span>
+<span class="nc" id="L88">	}</span>
+	public String getSetUserName() {
+<span class="nc" id="L90">		return setUserName;</span>
+	}
+	public void setSetUserName(String setUserName) {
+<span class="nc" id="L93">		this.setUserName = setUserName;</span>
+<span class="nc" id="L94">	}</span>
+	public String getSetRealName() {
+<span class="nc" id="L96">		return setRealName;</span>
+	}
+	public void setSetRealName(String setRealName) {
+<span class="nc" id="L99">		this.setRealName = setRealName;</span>
+<span class="nc" id="L100">	}</span>
+	public String getSetSex() {
+<span class="nc" id="L102">		return setSex;</span>
+	}
+	public void setSetSex(String setSex) {
+<span class="nc" id="L105">		this.setSex = setSex;</span>
+<span class="nc" id="L106">	}</span>
+	public String getSetEmail() {
+<span class="nc" id="L108">		return setEmail;</span>
+	}
+	public void setSetEmail(String setEmail) {
+<span class="nc" id="L111">		this.setEmail = setEmail;</span>
+<span class="nc" id="L112">	}</span>
+	public String getSetMajor() {
+<span class="nc" id="L114">		return setMajor;</span>
+	}
+	public void setSetMajor(String setMajor) {
+<span class="nc" id="L117">		this.setMajor = setMajor;</span>
+<span class="nc" id="L118">	}</span>
+	public String getSetGrade() {
+<span class="nc" id="L120">		return setGrade;</span>
+	}
+	public void setSetGrade(String setGrade) {
+<span class="nc" id="L123">		this.setGrade = setGrade;</span>
+<span class="nc" id="L124">	}</span>
+	public String getOldPsw() {
+<span class="nc" id="L126">		return oldPsw;</span>
+	}
+	public void setOldPsw(String oldPsw) {
+<span class="nc" id="L129">		this.oldPsw = oldPsw;</span>
+<span class="nc" id="L130">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201604210617</span></div></body></html>

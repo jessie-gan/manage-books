@@ -1,0 +1,62 @@
+@charset "utf-8";
+*{
+	font-family: "微软雅黑";
+}
+.booktail{
+	width:100%;
+	margin-top: 40px;
+}
+.taildiv{
+	width: 98%;
+	margin: 0 auto;
+	
+}
+.book_img{
+	width: 80%;
+	min-width: 750px;
+	border: 1px solid #BEBEBE;
+	margin-left: 30px;
+	background: #F5F5DC;
+}
+.bookimg{
+	position: relative;
+	margin-top: 60px;
+	float: left;
+	margin-left: 80px;
+	margin-right: 80px;
+	margin-bottom: 60px;
+}
+.booknews{
+	margin-top: 60px;
+	margin-bottom: 60px;
+}
+.bookul{
+	list-style: none;
+	margin-left: 60px;
+}
+.bookul li{
+	height: 40px;
+}
+.book_newstail{
+	width: 300px;
+	
+}
+.bookli{
+	height: 500px;
+}
+.booktext{
+	padding: 6px 12px;
+	font-size: 14px;
+	border-radius: 5px;
+	font-family: "微软雅黑";
+	width: 400px;
+}
+.book_melend{
+	margin-bottom: 30px;
+	margin-top: 50px;
+	margin-left: 110px;
+}
+.lendbtn{
+	background: #00688B;
+	color: #FFF;
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>图书管理系统</title>
+		<link rel="icon" href="../img/1176978.png"/>
+		<link rel="stylesheet" href="../css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../css/stuperson.css" />
+	</head>
+	<body>
+		<div class="header">
+			<div class="head">
+				<div class="headleft">
+					<p class="title_font">图书管理系统</p>
+				</div>
+			</div>	
+		</div>
+		<div class="person">
+			<div class="person_div">
+				<div class="right">
+					<span class="glyphicon glyphicon-map-marker guide"></span>&nbsp;<a href="studenthunt.html">首页</a>&nbsp;/&nbsp;<span>个人中心</span>
+				</div>
+				<div class="float">
+					<a href="totallend.html"><img class="imgmail" src="../img/mail.png"/></a><span class="sz_mailspan">欢迎您<span id="name"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span id="exit" style="color:"><span class="glyphicon glyphicon-log-out"></span>&nbsp;退出</span></span>
+				</div>
+			</div>
+		</div>
+		<div class="sz_bookbody">
+			<div class="sz_bookset">
+				<div class="sz_set">
+					<div class="sz_setleft">
+						<ul class="sz_setbtn">
+							<li><input class="setbtn btn" id="news" type="button" value="个人资料"/></li>
+							<li><input class="setbtn btn" id="passw" type="button" value="修改密码"/></li>
+							<li><input class="setbtn btn" id="lend" type="button" value="当前借阅"/></li>
+							<li><input class="setbtn btn" id="history" type="button" value="借阅历史"/></li>
+							<li><input class="setbtn btn" id="fork" type="button" value="R豆记录"/></li>
+						</ul>
+					</div>
+					<div class="sz_setright">
+						<!--个人资料-->
+						<div class="person_news form-group">
+							<ul class="news_tail">
+								<li><label class="label_float" style="font-size:13px;">学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号:</label><input type="text" id="stuNum" class="form-control form_input" disabled/></li>
+								<li><label class="label_float" style="font-size:13px;">昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称:</label><input type="text" id="niname" class="form-control form_input"/></li>
+								<li><label class="label_float" style="font-size:13px;">真实姓名:</label><input type="text" id="truename" class="form-control form_input" placeholder="请输入真实姓名"/></li>
+								<li><label class="label_float" style="font-size:13px;">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别:</label>
+								<select class="form-control form_input" style="width:80px;" id="sex">
+  									<option>男</option>
+  									<option>女</option></select></li>
+								<li><label class="label_float" style="font-size:13px;">电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话:</label><input type="text" id="telphone" class="form-control form_input" placeholder="请输入电话号码"/></li>
+								<li><label class="label_float" style="font-size:13px;">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱:</label><input type="text" id="email" class="form-control form_input" placeholder="请输入邮箱"/></li>
+								<li><label class="label_float" style="font-size:13px;">班&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;级:</label><input type="text" id="banji" class="form-control form_input"  placeholder="请输入班级"/></li>
+								<li><label class="label_float" style="font-size:13px;">专&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;业:</label>
+								<select class="form-control form_input" style="width:180px;" id="major">
+									<option>医学影像</option>
+									<option>信息安全</option>
+  									<option>软件工程</option>
+  									<option>计算机科学与技术</option></select></li>
+								<li class="sz_spanbtnli"><button id="save" class="btn btn-default sz_spanbtn1"><span class="glyphicon glyphicon-plus"></span>&nbsp;保存</button>
+									<button class="btn btn-default sz_spanbtn"><span class="glyphicon glyphicon-minus"></span>&nbsp;取消</button></li>
+							</ul>
+						</div>
+					</div>
+				</div>				
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../js/jquery-1.11.1.js" ></script>
+	<script type="text/javascript" src="../js/bootstrap.min.js" ></script>
+	<script type="text/javascript" src="../js/Stucommom.js" ></script>
+	<script type="text/javascript" src="../js/stu-exit.js" ></script>
+	<script type="text/javascript" src="../js/stuperson.js" ></script>
+</html>

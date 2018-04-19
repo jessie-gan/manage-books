@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">test</a> &gt; <a href="index.source.html" class="el_package">jessie.booksmanage.pojo</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">package jessie.booksmanage.pojo;
+
+public class User{
+	private Integer user_id;
+	private String student_num;
+	private String username;
+	private String password;
+	private String register_time;
+	private Integer details_id;
+	private String real_name;
+	private String sex;
+	private String email;
+	private String tel;
+	private String gradeClass;
+	private String major;
+	private Integer readBean;
+	
+	public User(String student_num, String username, String password) {
+<span class="fc" id="L19">		super();</span>
+<span class="fc" id="L20">		this.student_num = student_num;</span>
+<span class="fc" id="L21">		this.username = username;</span>
+<span class="fc" id="L22">		this.password = password;</span>
+<span class="fc" id="L23">	}</span>
+	public User() {
+<span class="fc" id="L25">		super();</span>
+		// TODO Auto-generated constructor stub
+<span class="fc" id="L27">	}</span>
+	public Integer getUser_id() {
+<span class="nc" id="L29">		return user_id;</span>
+	}
+	public void setUser_id(Integer user_id) {
+<span class="fc" id="L32">		this.user_id = user_id;</span>
+<span class="fc" id="L33">	}</span>
+	public String getStudent_num() {
+<span class="fc" id="L35">		return student_num;</span>
+	}
+	public void setStudent_num(String student_num) {
+<span class="fc" id="L38">		this.student_num = student_num;</span>
+<span class="fc" id="L39">	}</span>
+	public String getUsername() {
+<span class="fc" id="L41">		return username;</span>
+	}
+	public void setUsername(String username) {
+<span class="fc" id="L44">		this.username = username;</span>
+<span class="fc" id="L45">	}</span>
+	public String getPassword() {
+<span class="fc" id="L47">		return password;</span>
+	}
+	public void setPassword(String password) {
+<span class="fc" id="L50">		this.password = password;</span>
+<span class="fc" id="L51">	}</span>
+	public String getSex() {
+<span class="fc" id="L53">		return sex;</span>
+	}
+	public void setSex(String sex) {
+<span class="fc" id="L56">		this.sex = sex;</span>
+<span class="fc" id="L57">	}</span>
+	public String getEmail() {
+<span class="fc" id="L59">		return email;</span>
+	}
+	public void setEmail(String email) {
+<span class="fc" id="L62">		this.email = email;</span>
+<span class="fc" id="L63">	}</span>
+	public String getTel() {
+<span class="fc" id="L65">		return tel;</span>
+	}
+	public void setTel(String tel) {
+<span class="fc" id="L68">		this.tel = tel;</span>
+<span class="fc" id="L69">	}</span>
+	public String getMajor() {
+<span class="fc" id="L71">		return major;</span>
+	}
+	public void setMajor(String major) {
+<span class="fc" id="L74">		this.major = major;</span>
+<span class="fc" id="L75">	}</span>
+	public String getRegister_time() {
+<span class="nc" id="L77">		return register_time;</span>
+	}
+	public void setRegister_time(String register_time) {
+<span class="fc" id="L80">		this.register_time = register_time;</span>
+<span class="fc" id="L81">	}</span>
+	public Integer getDetails_id() {
+<span class="nc" id="L83">		return details_id;</span>
+	}
+	public void setDetails_id(Integer details_id) {
+<span class="fc" id="L86">		this.details_id = details_id;</span>
+<span class="fc" id="L87">	}</span>
+	public String getReal_name() {
+<span class="fc" id="L89">		return real_name;</span>
+	}
+	public void setReal_name(String real_name) {
+<span class="fc" id="L92">		this.real_name = real_name;</span>
+<span class="fc" id="L93">	}</span>
+	public String getGradeClass() {
+<span class="fc" id="L95">		return gradeClass;</span>
+	}
+	public void setGradeClass(String gradeClass) {
+<span class="fc" id="L98">		this.gradeClass = gradeClass;</span>
+<span class="fc" id="L99">	}</span>
+	public Integer getReadBean() {
+<span class="fc" id="L101">		return readBean;</span>
+	}
+	public void setReadBean(Integer readBean) {
+<span class="fc" id="L104">		this.readBean = readBean;</span>
+<span class="fc" id="L105">	}</span>
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201604210617</span></div></body></html>

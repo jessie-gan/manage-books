@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>ManageBooks</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+  <!-- struts2配置 -->
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+		<!-- 指定含Action类的包，如果有多个则用逗号隔开 -->
+		<init-param>
+			<param-name>actionPackages</param-name>
+			<param-value>jessie.booksmanage.action</param-value>
+		</init-param>
+	</filter>
+	<!--  
+	<filter>
+		<filter-name>authority</filter-name>
+		<filter-class>nsims.NSIMSFilter</filter-class>
+	</filter>
+	-->
+	<!-- 用于权限控制 -->
+	<!--  
+	<filter-mapping>
+		<filter-name>authority</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	-->
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+        <filter-name>struts-prepare</filter-name>
+        <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>struts-prepare</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>struts-execute</filter-name>
+        <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsExecuteFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>struts-execute</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+	<!-- struts2 -->
+	
+	<context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:spring-mybatis.xml</param-value>
+  </context-param>
+  <filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <async-supported>true</async-supported>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+  </listener>
+</web-app>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<FindBugsFilter> 
+     <!--  所有类使用bugcode为HE的检测器  --> 
+     <Match> 
+         <BugCode  name ="HE"/> 
+     </Match> 
+     <!--  该类使用所有的bug检测器  --> 
+     <Match class ="com.foobar.AClass"/>     
+     <!--  该类使用bugcode为HE的检测器  --> 
+     <Match class ="com.foobar.BClass"> 
+         <BugCode  name ="HE"/> 
+     </Match> 
+     <!--  该类的AMethod和BMethod方法使用bugcode为HE的检测器  --> 
+     <Match class ="com.foobar.CClass"> 
+         <Or> 
+             <Method name ="AMethod"/> 
+             <Method name ="BMethod"/> 
+         </Or> 
+         <BugCode name ="HE"/> 
+     </Match> 
+</FindBugsFilter>
+

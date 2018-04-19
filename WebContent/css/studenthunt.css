@@ -1,0 +1,149 @@
+/*sz-head*/
+@charset "utf-8";
+*{
+	padding:0px;
+	margin:0px;
+	font-family: "微软雅黑";
+}
+/* body{
+	background-color: #F8F8F8;
+	background-image: url(../img/scan.jpg);
+} */
+body {
+	margin: 0;
+	background-color: #F8F8F8;
+	background-image: url(../img/scan.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+.header{
+	width: 100%;
+	height: 60px;
+	background: #00688B;
+}
+.head{
+	width: 90%;
+	height: 60px;
+	margin: 0 auto;
+}
+.headleft{
+	position:relative;
+	float:left;
+	width:200px;
+}
+.headright{
+	float:right;
+	width:60px;
+	
+}
+.right_font{
+	margin: 0px;
+	color: #FFF;
+	font-size: 14px;
+	line-height: 60px;
+	font-family: "微软雅黑";
+	cursor:pointer;
+}
+.title_font{
+	margin: 0px;
+	color: #FFF;
+	font-size: 28px;
+	line-height: 60px;
+	font-family: "微软雅黑";
+}
+/*person*/
+.sz_selsct{
+	width: 80px;
+}
+.person{
+	width: 100%;
+	height: 40px;
+}
+.float{
+	position: relative;
+	float: right;
+	font-family: "微软雅黑";
+	font-style: oblique;
+	margin-top: 10px;
+}
+.person_div{
+	width: 96%;
+	margin: 0 auto;
+}
+.imgmail{
+	width: 30px;
+	padding-top: 6px;
+}
+.sz_mailspan{
+	padding-right: 6px;
+	padding-left: 6px;
+	color: #FFF;
+}
+.imgperson{
+	width: 24px;
+	height: 20px;
+}
+.ex1{
+	color: red;
+	font-style: bolder;
+	text-decoration: underline;
+}
+a.ex1:hover,a.ex1:active {
+	color:#FFF;
+}
+/*借书*/
+.huntscan{
+	width: 100%;
+	height: 30px;
+}
+.huntbtn{
+	width: 92%;
+	margin: 0 auto;
+	margin-top: 40px;
+}
+/*查询*/
+.scan{
+	width: 100%;
+	height: 50px;
+	margin-top: 120px;
+}
+.sacndiv{
+	width: 90%;
+	height: 50px;
+	margin: 0 auto;
+}
+.scaninput{
+	width: 500px;
+	height: 50px;
+	margin: 0 auto;
+}
+.scanform{
+	height: 46px;
+	font-family: "微软雅黑";
+	font-size: 15px;
+	width: 400px;
+}
+.sz_btnscant{
+	background: #00688B;
+	border: 0px;
+	font-family: "微软雅黑";
+	font-size: 14px;
+	color: #FFF;
+	top:0px;
+	text-decoration: none;
+}
+.sz_ex1span{
+	margin-right:5px ;
+}
+.sz_btnscan{
+	background: #00688B;
+	border: 0px;
+	font-family: "微软雅黑";
+	font-size: 16px;
+	color: #FFF;
+	position: relative;
+	float: right;
+	top:-40px;
+	text-decoration: none;
+}

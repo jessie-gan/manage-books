@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>RecordServiceImpl.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">test</a> &gt; <a href="index.source.html" class="el_package">jessie.booksmanage.service.impl</a> &gt; <span class="el_source">RecordServiceImpl.java</span></div><h1>RecordServiceImpl.java</h1><pre class="source lang-java linenums">package jessie.booksmanage.service.impl;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.struts2.ServletActionContext;
+import org.springframework.stereotype.Service;
+
+import jessie.booksmanage.dao.BorrowListDAO;
+import jessie.booksmanage.pojo.BorrowRecord;
+import jessie.booksmanage.service.RecordService;
+
+@Service(&quot;recordService&quot;)
+<span class="fc" id="L24">public class RecordServiceImpl implements RecordService {</span>
+
+	@Resource
+	private BorrowListDAO borrowListDAO;
+
+	public int getTotalPageNum(int amounts, int steps) {
+<span class="fc" id="L30">		int pageNum = 1;</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">		if (amounts % steps == 0) {</span>
+<span class="fc" id="L32">			pageNum = amounts / steps;</span>
+		} else {
+<span class="fc" id="L34">			pageNum = (amounts / steps) + 1;</span>
+		}
+<span class="fc" id="L36">		return pageNum;</span>
+	}
+
+	public long getIntervalDays(String time1, String time2) {
+		long days;
+<span class="fc" id="L41">		SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+		Date date1;
+		try {
+<span class="fc" id="L44">			date1 = sdf.parse(time1);</span>
+<span class="fc" id="L45">			Date date2 = sdf.parse(time2);</span>
+<span class="fc" id="L46">			Calendar cal = Calendar.getInstance();</span>
+<span class="fc" id="L47">			cal.setTime(date1);</span>
+<span class="fc" id="L48">			long timeS = cal.getTimeInMillis();</span>
+<span class="fc" id="L49">			cal.setTime(date2);</span>
+<span class="fc" id="L50">			long timeB = cal.getTimeInMillis();</span>
+<span class="fc" id="L51">			days = (timeS - timeB) / (1000 * 24 * 60 * 60);</span>
+<span class="fc" id="L52">			return days;</span>
+<span class="nc" id="L53">		} catch (ParseException e) {</span>
+			// TODO Auto-generated catch block
+<span class="nc" id="L55">			e.printStackTrace();</span>
+<span class="nc" id="L56">			return -1;</span>
+		}
+
+	}
+
+	@Override
+	public Map&lt;String, Object&gt; getAllRecordsByPage(int page, int steps) {
+<span class="fc" id="L63">		Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();</span>
+<span class="fc" id="L64">		Map&lt;String, Object&gt; parameterMap = new HashMap&lt;String, Object&gt;();</span>
+<span class="fc" id="L65">		int startNum = 0;</span>
+<span class="fc" id="L66">		startNum = (page - 1) * steps;</span>
+<span class="fc" id="L67">		parameterMap.put(&quot;startNum&quot;, startNum);</span>
+<span class="fc" id="L68">		parameterMap.put(&quot;steps&quot;, steps);</span>
+<span class="fc" id="L69">		List&lt;BorrowRecord&gt; borrowRecords = this.borrowListDAO.selectAllRecordByPage(parameterMap);</span>
+<span class="fc" id="L70">		List&lt;BorrowRecord&gt; AllhisRecords = this.borrowListDAO.selectAllRecord();</span>
+<span class="fc" id="L71">		List&lt;BorrowRecord&gt; Records = new ArrayList&lt;BorrowRecord&gt;();</span>
+<span class="fc" id="L72">		int allAmounts = AllhisRecords.size();</span>
+		int totalPage;
+<span class="pc bpc" id="L74" title="1 of 2 branches missed.">		if (borrowRecords.isEmpty()) {</span>
+<span class="nc" id="L75">			map.put(&quot;msg&quot;, &quot;无历史借阅记录&quot;);</span>
+		} else {
+<span class="fc" id="L77">			totalPage = this.getTotalPageNum(allAmounts, steps);</span>
+			int endNum;
+<span class="fc" id="L79">			startNum = 0;</span>
+<span class="fc" id="L80">			endNum = borrowRecords.size();</span>
+<span class="fc bfc" id="L81" title="All 2 branches covered.">			for (int i = startNum; i &lt; endNum; i++) {</span>
+<span class="fc" id="L82">				Records.add(borrowRecords.get(i));</span>
+			}
+<span class="fc" id="L84">			map.put(&quot;totalPage&quot;, totalPage);</span>
+<span class="fc" id="L85">			map.put(&quot;msg&quot;, &quot;历史借阅记录&quot;);</span>
+<span class="fc" id="L86">			map.put(&quot;AllHistoryRecords&quot;, Records);</span>
+<span class="fc" id="L87">			map.put(&quot;amounts&quot;, allAmounts);</span>
+		}
+<span class="fc" id="L89">		return map;</span>
+	}
+
+	@Override
+	public Map&lt;String, Object&gt; getAllCurrentRecordsByPage(int page, int steps) {
+<span class="fc" id="L94">		Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();</span>
+<span class="fc" id="L95">		Map&lt;String, Object&gt; parameterMap = new HashMap&lt;String, Object&gt;();</span>
+<span class="fc" id="L96">		int startNum = 0;</span>
+<span class="fc" id="L97">		startNum = (page - 1) * steps;</span>
+<span class="fc" id="L98">		parameterMap.put(&quot;startNum&quot;, startNum);</span>
+<span class="fc" id="L99">		parameterMap.put(&quot;steps&quot;, steps);</span>
+<span class="fc" id="L100">		List&lt;BorrowRecord&gt; borrowRecord = this.borrowListDAO.selectCurrentRecords(parameterMap);</span>
+<span class="fc" id="L101">		int amounts = this.borrowListDAO.selectRecordAmount();</span>
+		int totalPage;
+<span class="fc bfc" id="L103" title="All 2 branches covered.">		if (borrowRecord.isEmpty()) {</span>
+<span class="fc" id="L104">			map.put(&quot;msg&quot;, &quot;当前无借阅记录&quot;);</span>
+		} else {
+<span class="fc" id="L106">			map.put(&quot;msg&quot;, &quot;当前借阅记录&quot;);</span>
+<span class="fc" id="L107">			map.put(&quot;borrowList&quot;, borrowRecord);</span>
+<span class="fc" id="L108">			totalPage = this.getTotalPageNum(amounts, steps);</span>
+<span class="fc" id="L109">			map.put(&quot;totalPage&quot;, totalPage);</span>
+<span class="fc" id="L110">			map.put(&quot;amounts&quot;, amounts);</span>
+		}
+<span class="fc" id="L112">		return map;</span>
+	}
+
+	@Override
+	public Map&lt;String, Object&gt; getAllCurrentRecords() {
+<span class="fc" id="L117">		Map&lt;String, Object&gt; tempMap = new HashMap&lt;String, Object&gt;();</span>
+<span class="fc" id="L118">		int amounts = borrowListDAO.selectRecordAmount();</span>
+<span class="fc" id="L119">		tempMap = this.getAllCurrentRecordsByPage(1, amounts);</span>
+<span class="fc" id="L120">		return tempMap;</span>
+	}
+
+	@Override
+	public Map&lt;String, Object&gt; getAllRecentRecords() {
+<span class="fc" id="L125">		Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();</span>
+<span class="fc" id="L126">		Map&lt;String, Object&gt; tempMap = new HashMap&lt;String, Object&gt;();</span>
+<span class="fc" id="L127">		List&lt;BorrowRecord&gt; recentRecord = new ArrayList&lt;BorrowRecord&gt;();</span>
+<span class="fc" id="L128">		tempMap = this.getAllCurrentRecords();</span>
+<span class="fc" id="L129">		String msg = (String) tempMap.get(&quot;msg&quot;);</span>
+<span class="pc bpc" id="L130" title="1 of 2 branches missed.">		if (msg.equals(&quot;当前无借阅记录&quot;)) {</span>
+<span class="nc" id="L131">			map.put(&quot;msg&quot;, msg);</span>
+		} else {
+			@SuppressWarnings(&quot;unchecked&quot;)
+<span class="fc" id="L134">			List&lt;BorrowRecord&gt; record = (List&lt;BorrowRecord&gt;) tempMap.get(&quot;borrowList&quot;);</span>
+<span class="fc bfc" id="L135" title="All 2 branches covered.">			for (int i = 0; i &lt; record.size(); i++) {</span>
+<span class="fc" id="L136">				Date nowDate = new Date();</span>
+<span class="fc" id="L137">				SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L138">				String borrowTime = record.get(i).getBorrow_time();</span>
+<span class="fc" id="L139">				borrowTime = borrowTime.substring(0, 10);</span>
+<span class="fc" id="L140">				String nowTime = sdf.format(nowDate);</span>
+				long days;
+<span class="fc" id="L142">				days = this.getIntervalDays(nowTime, borrowTime);</span>
+<span class="fc bfc" id="L143" title="All 2 branches covered.">				if (days &lt;= 7) {</span>
+<span class="fc" id="L144">					recentRecord.add(record.get(i));</span>
+				}
+
+			}
+<span class="fc bfc" id="L148" title="All 2 branches covered.">			if (recentRecord.isEmpty()) {</span>
+<span class="fc" id="L149">				map.put(&quot;msg&quot;, &quot;最近一周无借阅记录&quot;);</span>
+			} else {
+<span class="fc" id="L151">				map.put(&quot;msg&quot;, &quot;最近一周借阅&quot;);</span>
+<span class="fc" id="L152">				map.put(&quot;allRecentRecord&quot;, recentRecord);</span>
+			}
+		}
+<span class="fc" id="L155">		return map;</span>
+	}
+
+	@SuppressWarnings(&quot;unchecked&quot;)
+	@Override
+	public Map&lt;String, Object&gt; getAllRecentRecordsByPage(int page, int steps) {
+<span class="fc" id="L161">		Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();</span>
+<span class="fc" id="L162">		Map&lt;String, Object&gt; tempMap = new HashMap&lt;String, Object&gt;();</span>
+<span class="fc" id="L163">		List&lt;BorrowRecord&gt; recentRecord = new ArrayList&lt;BorrowRecord&gt;();</span>
+<span class="fc" id="L164">		List&lt;BorrowRecord&gt; recentRecord2 = new ArrayList&lt;BorrowRecord&gt;();</span>
+<span class="fc" id="L165">		tempMap = this.getAllRecentRecords();</span>
+<span class="fc" id="L166">		String msg = (String) tempMap.get(&quot;msg&quot;);</span>
+<span class="pc bpc" id="L167" title="2 of 4 branches missed.">		if (msg.equals(&quot;最近一周无借阅记录&quot;) || msg.equals(&quot;当前无借阅记录&quot;)) {</span>
+<span class="nc" id="L168">			map.put(&quot;msg&quot;, msg);</span>
+<span class="nc" id="L169">			return map;</span>
+		}
+<span class="fc" id="L171">		recentRecord = (List&lt;BorrowRecord&gt;) tempMap.get(&quot;allRecentRecord&quot;);</span>
+<span class="fc" id="L172">		int amounts = recentRecord.size();</span>
+		int totalPage;
+<span class="fc" id="L174">		int startNum = 0;</span>
+		int endNum;
+<span class="fc" id="L176">		startNum = (page - 1) * 10;</span>
+<span class="fc" id="L177">		endNum = startNum + 10;</span>
+<span class="pc bpc" id="L178" title="1 of 2 branches missed.">		if (endNum &gt; amounts) {</span>
+<span class="nc" id="L179">			endNum = amounts;</span>
+		}
+<span class="fc bfc" id="L181" title="All 2 branches covered.">		for (int i = startNum; i &lt; endNum; i++) {</span>
+<span class="fc" id="L182">			recentRecord2.add(recentRecord.get(i));</span>
+		}
+<span class="fc" id="L184">		map.put(&quot;msg&quot;, &quot;最近一周借阅&quot;);</span>
+<span class="fc" id="L185">		map.put(&quot;RecentRecord&quot;, recentRecord2);</span>
+<span class="fc" id="L186">		totalPage = this.getTotalPageNum(amounts, steps);</span>
+<span class="fc" id="L187">		map.put(&quot;totalPage&quot;, totalPage);</span>
+<span class="fc" id="L188">		map.put(&quot;amounts&quot;, amounts);</span>
+<span class="fc" id="L189">		return map;</span>
+	}
+
+	@Override
+	public Map&lt;String, Object&gt; getAllRecentShouldReturn() {
+<span class="fc" id="L194">		Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();</span>
+<span class="fc" id="L195">		Map&lt;String, Object&gt; tempMap = new HashMap&lt;String, Object&gt;();</span>
+<span class="fc" id="L196">		List&lt;BorrowRecord&gt; shouldReturn = new ArrayList&lt;BorrowRecord&gt;();</span>
+<span class="fc" id="L197">		tempMap = this.getAllCurrentRecords();</span>
+<span class="fc" id="L198">		String msg = (String) tempMap.get(&quot;msg&quot;);</span>
+<span class="pc bpc" id="L199" title="1 of 2 branches missed.">		if (msg.equals(&quot;当前无借阅记录&quot;)) {</span>
+<span class="nc" id="L200">			map.put(&quot;msg&quot;, msg);</span>
+		} else {
+			@SuppressWarnings(&quot;unchecked&quot;)
+<span class="fc" id="L203">			List&lt;BorrowRecord&gt; record = (List&lt;BorrowRecord&gt;) tempMap.get(&quot;borrowList&quot;);</span>
+<span class="fc bfc" id="L204" title="All 2 branches covered.">			for (int i = 0; i &lt; record.size(); i++) {</span>
+<span class="fc" id="L205">				Date nowDate = new Date();</span>
+<span class="fc" id="L206">				SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L207">				String shouldReTime = record.get(i).getShouldReturn_time();</span>
+<span class="fc" id="L208">				shouldReTime = shouldReTime.substring(0, 10);</span>
+<span class="fc" id="L209">				String nowTime = sdf.format(nowDate);</span>
+<span class="fc" id="L210">				long days = this.getIntervalDays(shouldReTime, nowTime);</span>
+<span class="fc bfc" id="L211" title="All 2 branches covered.">				if (days &lt;= 3) {</span>
+<span class="fc" id="L212">					shouldReturn.add(record.get(i));</span>
+				}
+			}
+<span class="fc bfc" id="L215" title="All 2 branches covered.">			if (shouldReturn.isEmpty()) {</span>
+<span class="fc" id="L216">				map.put(&quot;msg&quot;, &quot;没有最近三天需要归还的图书及已超期的图书&quot;);</span>
+			} else {
+<span class="fc" id="L218">				map.put(&quot;msg&quot;, &quot;最近三天应还图书或已超期图书&quot;);</span>
+<span class="fc" id="L219">				map.put(&quot;allShouldReturn&quot;, shouldReturn);</span>
+			}
+		}
+<span class="fc" id="L222">		return map;</span>
+	}
+
+	@SuppressWarnings(&quot;unchecked&quot;)
+	@Override
+	public Map&lt;String, Object&gt; getAllRecentShouldReturnByPage(int page, int steps) {
+<span class="fc" id="L228">		Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();</span>
+<span class="fc" id="L229">		Map&lt;String, Object&gt; tempMap = new HashMap&lt;String, Object&gt;();</span>
+<span class="fc" id="L230">		List&lt;BorrowRecord&gt; recentRecord = new ArrayList&lt;BorrowRecord&gt;();</span>
+<span class="fc" id="L231">		List&lt;BorrowRecord&gt; recentRecord2 = new ArrayList&lt;BorrowRecord&gt;();</span>
+<span class="fc" id="L232">		tempMap = this.getAllRecentShouldReturn();</span>
+<span class="fc" id="L233">		String msg = (String) tempMap.get(&quot;msg&quot;);</span>
+<span class="pc bpc" id="L234" title="2 of 4 branches missed.">		if (msg.equals(&quot;没有最近三天需要归还的图书及已超期的图书&quot;) || msg.equals(&quot;当前无借阅记录&quot;)) {</span>
+<span class="nc" id="L235">			map.put(&quot;msg&quot;, msg);</span>
+<span class="nc" id="L236">			return map;</span>
+		}
+<span class="fc" id="L238">		recentRecord = (List&lt;BorrowRecord&gt;) tempMap.get(&quot;allShouldReturn&quot;);</span>
+<span class="fc" id="L239">		int amounts = recentRecord.size();</span>
+		int totalPage;
+<span class="fc" id="L241">		int startNum = 0;</span>
+		int endNum;
+<span class="fc" id="L243">		startNum = (page - 1) * 10;</span>
+<span class="fc" id="L244">		endNum = startNum + 10;</span>
+<span class="pc bpc" id="L245" title="1 of 2 branches missed.">		if (endNum &gt; amounts) {</span>
+<span class="nc" id="L246">			endNum = amounts;</span>
+		}
+<span class="fc bfc" id="L248" title="All 2 branches covered.">		for (int i = startNum; i &lt; endNum; i++) {</span>
+<span class="fc" id="L249">			recentRecord2.add(recentRecord.get(i));</span>
+		}
+<span class="fc" id="L251">		map.put(&quot;msg&quot;, &quot;最近三天应还图书或已超期图书&quot;);</span>
+<span class="fc" id="L252">		map.put(&quot;ShouldReturn&quot;, recentRecord2);</span>
+<span class="fc" id="L253">		totalPage = this.getTotalPageNum(amounts, steps);</span>
+<span class="fc" id="L254">		map.put(&quot;totalPage&quot;, totalPage);</span>
+<span class="fc" id="L255">		map.put(&quot;amounts&quot;, amounts);</span>
+<span class="fc" id="L256">		return map;</span>
+
+	}
+
+	@Override
+	public Map&lt;String, Object&gt; getOnesCurrentRecords(String stuNum) {
+
+<span class="nc" id="L263">		Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();</span>
+<span class="nc" id="L264">		List&lt;BorrowRecord&gt; currentRecord = this.borrowListDAO.selectOnesCurrentRecord(stuNum);</span>
+<span class="nc bnc" id="L265" title="All 2 branches missed.">		if (currentRecord.isEmpty()) {</span>
+<span class="nc" id="L266">			map.put(&quot;msg&quot;, &quot;当前无借阅记录&quot;);</span>
+		} else {
+<span class="nc" id="L268">			map.put(&quot;msg&quot;, &quot;获取当前借阅记录成功&quot;);</span>
+<span class="nc" id="L269">			map.put(&quot;currentRecords&quot;, currentRecord);</span>
+		}
+<span class="nc" id="L271">		return map;</span>
+	}
+
+	@Override
+	public Map&lt;String, Object&gt; getOnesHistoryRecords() {
+<span class="nc" id="L276">		Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();</span>
+<span class="nc" id="L277">		HttpServletRequest request = ServletActionContext.getRequest();</span>
+<span class="nc" id="L278">		HttpSession session = request.getSession();</span>
+<span class="nc" id="L279">		String stuNum = (String) session.getAttribute(&quot;stuNum&quot;);</span>
+<span class="nc" id="L280">		List&lt;BorrowRecord&gt; historyRecord = this.borrowListDAO.selectOnesHistoryRecord(stuNum);</span>
+<span class="nc bnc" id="L281" title="All 2 branches missed.">		if (historyRecord.isEmpty()) {</span>
+<span class="nc" id="L282">			map.put(&quot;msg&quot;, &quot;无历史记录&quot;);</span>
+		} else {
+<span class="nc" id="L284">			map.put(&quot;msg&quot;, &quot;获取历史记录成功&quot;);</span>
+<span class="nc" id="L285">			map.put(&quot;OnesHisRecord&quot;, historyRecord);</span>
+		}
+<span class="nc" id="L287">		return map;</span>
+	}
+
+	@Override
+	public Map&lt;String, Object&gt; getOnesHistoryRecordsByPage(int page, int steps) {
+<span class="nc" id="L292">		Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();</span>
+<span class="nc" id="L293">		Map&lt;String, Object&gt; parameterMap = new HashMap&lt;String, Object&gt;();</span>
+<span class="nc" id="L294">		HttpServletRequest request = ServletActionContext.getRequest();</span>
+<span class="nc" id="L295">		HttpSession session = request.getSession();</span>
+<span class="nc" id="L296">		String stuNum = (String) session.getAttribute(&quot;stuNum&quot;);</span>
+<span class="nc" id="L297">		List&lt;BorrowRecord&gt; records = this.borrowListDAO.selectOnesHistoryRecord(stuNum);</span>
+<span class="nc" id="L298">		int amounts = records.size();</span>
+<span class="nc bnc" id="L299" title="All 2 branches missed.">		if (amounts == 0) {</span>
+<span class="nc" id="L300">			map.put(&quot;msg&quot;, &quot;无历史借阅记录&quot;);</span>
+<span class="nc" id="L301">			return map;</span>
+		}
+<span class="nc" id="L303">		int startNum = (page - 1) * steps;</span>
+<span class="nc" id="L304">		int totalPage = 1;</span>
+<span class="nc bnc" id="L305" title="All 2 branches missed.">		if (amounts % steps == 0) {</span>
+<span class="nc" id="L306">			totalPage = amounts / steps;</span>
+		} else {
+<span class="nc" id="L308">			totalPage = amounts / steps + 1;</span>
+		}
+<span class="nc" id="L310">		parameterMap.put(&quot;stuNum&quot;, stuNum);</span>
+<span class="nc" id="L311">		parameterMap.put(&quot;startNum&quot;, startNum);</span>
+<span class="nc" id="L312">		parameterMap.put(&quot;steps&quot;, steps);</span>
+<span class="nc" id="L313">		List&lt;BorrowRecord&gt; historyRecords = this.borrowListDAO.selectOnesHistoryRecordByPage(parameterMap);</span>
+<span class="nc" id="L314">		map.put(&quot;totalPage&quot;, totalPage);</span>
+<span class="nc" id="L315">		map.put(&quot;historyRecords&quot;, historyRecords);</span>
+<span class="nc" id="L316">		map.put(&quot;msg&quot;, &quot;获取历史记录成功！&quot;);</span>
+<span class="nc" id="L317">		map.put(&quot;amounts&quot;, amounts);</span>
+<span class="nc" id="L318">		return map;</span>
+	}
+
+	@Override
+	public Map&lt;String, Object&gt; getOnesRecentRecords() {
+<span class="nc" id="L323">		Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();</span>
+<span class="nc" id="L324">		Map&lt;String, Object&gt; tempMap = new HashMap&lt;String, Object&gt;();</span>
+<span class="nc" id="L325">		List&lt;BorrowRecord&gt; recentRecord = new ArrayList&lt;BorrowRecord&gt;();</span>
+<span class="nc" id="L326">		HttpServletRequest request = ServletActionContext.getRequest();</span>
+<span class="nc" id="L327">		HttpSession session = request.getSession();</span>
+<span class="nc" id="L328">		String stuNum = (String) session.getAttribute(&quot;stuNum&quot;);</span>
+<span class="nc" id="L329">		tempMap = this.getOnesCurrentRecords(stuNum);</span>
+<span class="nc" id="L330">		String msg = (String) tempMap.get(&quot;msg&quot;);</span>
+<span class="nc bnc" id="L331" title="All 2 branches missed.">		if (msg.equals(&quot;当前无借阅记录&quot;)) {</span>
+<span class="nc" id="L332">			map.put(&quot;msg&quot;, msg);</span>
+		} else {
+			@SuppressWarnings(&quot;unchecked&quot;)
+<span class="nc" id="L335">			List&lt;BorrowRecord&gt; record = (List&lt;BorrowRecord&gt;) tempMap.get(&quot;currentRecords&quot;);</span>
+<span class="nc bnc" id="L336" title="All 2 branches missed.">			for (int i = 0; i &lt; record.size(); i++) {</span>
+<span class="nc" id="L337">				Date nowDate = new Date();</span>
+<span class="nc" id="L338">				SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="nc" id="L339">				String borrowTime = record.get(i).getBorrow_time();</span>
+<span class="nc" id="L340">				borrowTime = borrowTime.substring(0, 10);</span>
+<span class="nc" id="L341">				String nowTime = sdf.format(nowDate);</span>
+<span class="nc" id="L342">				long days = this.getIntervalDays(nowTime, borrowTime);</span>
+<span class="nc bnc" id="L343" title="All 2 branches missed.">				if (days &lt;= 7) {</span>
+<span class="nc" id="L344">					recentRecord.add(record.get(i));</span>
+				}
+			}
+		}
+<span class="nc bnc" id="L348" title="All 2 branches missed.">		if (recentRecord.isEmpty()) {</span>
+<span class="nc" id="L349">			map.put(&quot;msg&quot;, &quot;最近一周无借阅记录&quot;);</span>
+		} else {
+<span class="nc" id="L351">			map.put(&quot;msg&quot;, &quot;最近一周借阅记录&quot;);</span>
+<span class="nc" id="L352">			map.put(&quot;recentRecord&quot;, recentRecord);</span>
+		}
+<span class="nc" id="L354">		return map;</span>
+	}
+
+	@Override
+	public List&lt;BorrowRecord&gt; getOnesOverTime() {
+<span class="nc" id="L359">		Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();</span>
+<span class="nc" id="L360">		Map&lt;String, Object&gt; tempMap = new HashMap&lt;String, Object&gt;();</span>
+<span class="nc" id="L361">		Map&lt;String, Object&gt; tempMap2 = new HashMap&lt;String, Object&gt;();</span>
+<span class="nc" id="L362">		List&lt;BorrowRecord&gt; overTimeRecord = new ArrayList&lt;BorrowRecord&gt;();</span>
+<span class="nc" id="L363">		HttpServletRequest request = ServletActionContext.getRequest();</span>
+<span class="nc" id="L364">		HttpSession session = request.getSession();</span>
+<span class="nc" id="L365">		String stuNum = (String) session.getAttribute(&quot;stuNum&quot;);</span>
+<span class="nc" id="L366">		tempMap = this.getOnesCurrentRecords(stuNum);</span>
+<span class="nc" id="L367">		String msg = (String) tempMap.get(&quot;msg&quot;);</span>
+<span class="nc" id="L368">		tempMap2 = this.getOnesHistoryRecords();</span>
+<span class="nc" id="L369">		String msg2 = (String) tempMap.get(&quot;msg&quot;);</span>
+<span class="nc bnc" id="L370" title="All 2 branches missed.">		if (msg.equals(&quot;当前无借阅记录&quot;)) {</span>
+<span class="nc" id="L371">			map.put(&quot;msg&quot;, msg);</span>
+		} else {
+			@SuppressWarnings(&quot;unchecked&quot;)
+<span class="nc" id="L374">			List&lt;BorrowRecord&gt; record = (List&lt;BorrowRecord&gt;) tempMap.get(&quot;currentRecords&quot;);</span>
+<span class="nc bnc" id="L375" title="All 2 branches missed.">			for (int i = 0; i &lt; record.size(); i++) {</span>
+<span class="nc" id="L376">				Date nowDate = new Date();</span>
+<span class="nc" id="L377">				SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="nc" id="L378">				String shouldReturnTime = record.get(i).getShouldReturn_time();</span>
+<span class="nc" id="L379">				shouldReturnTime = shouldReturnTime.substring(0, 10);</span>
+<span class="nc" id="L380">				String nowTime = sdf.format(nowDate);</span>
+<span class="nc" id="L381">				long days = this.getIntervalDays(shouldReturnTime, nowTime);</span>
+<span class="nc bnc" id="L382" title="All 2 branches missed.">				if (days &lt; 0) {</span>
+<span class="nc" id="L383">					record.get(i).setBorrow_state(0);</span>
+<span class="nc" id="L384">					overTimeRecord.add(record.get(i));</span>
+				}
+			}
+		}
+<span class="nc bnc" id="L388" title="All 2 branches missed.">		if (!msg2.equals(&quot;无历史记录&quot;)) {</span>
+			@SuppressWarnings(&quot;unchecked&quot;)
+<span class="nc" id="L390">			List&lt;BorrowRecord&gt; record = (List&lt;BorrowRecord&gt;) tempMap2.get(&quot;OnesHisRecord&quot;);</span>
+<span class="nc bnc" id="L391" title="All 2 branches missed.">			for (int i = 0; i &lt; record.size(); i++) {</span>
+<span class="nc" id="L392">				String returnTime = record.get(i).getReturn_time();</span>
+<span class="nc" id="L393">				returnTime = returnTime.substring(0, 10);</span>
+<span class="nc" id="L394">				String shouldReturnTime = record.get(i).getShouldReturn_time();</span>
+<span class="nc" id="L395">				shouldReturnTime = shouldReturnTime.substring(0, 10);</span>
+<span class="nc" id="L396">				long days = this.getIntervalDays(returnTime, shouldReturnTime);</span>
+<span class="nc bnc" id="L397" title="All 2 branches missed.">				if (days &gt; 0) {</span>
+<span class="nc" id="L398">					record.get(i).setBorrow_state(1);</span>
+<span class="nc" id="L399">					overTimeRecord.add(record.get(i));</span>
+				}
+			}
+		}
+<span class="nc" id="L403">		return overTimeRecord;</span>
+	}
+
+	@Override
+	public Map&lt;String, Object&gt; getOnesOvertimeByPage(List&lt;BorrowRecord&gt; overTimeRecord, int page, int steps) {
+<span class="nc" id="L408">		int amounts = overTimeRecord.size();</span>
+<span class="nc" id="L409">		Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();</span>
+<span class="nc" id="L410">		List&lt;BorrowRecord&gt; records = new ArrayList&lt;BorrowRecord&gt;();</span>
+		int totalPage;
+<span class="nc" id="L412">		int startNum = 0;</span>
+		int endNum;
+<span class="nc" id="L414">		startNum = (page - 1) * steps;</span>
+<span class="nc" id="L415">		endNum = startNum + steps;</span>
+<span class="nc bnc" id="L416" title="All 2 branches missed.">		if (endNum &gt; amounts) {</span>
+<span class="nc" id="L417">			endNum = amounts;</span>
+		}
+<span class="nc bnc" id="L419" title="All 2 branches missed.">		if (overTimeRecord.isEmpty()) {</span>
+<span class="nc" id="L420">			map.put(&quot;msg&quot;, &quot;当前无已超期记录&quot;);</span>
+		} else {
+<span class="nc" id="L422">			totalPage = this.getTotalPageNum(amounts, steps);</span>
+<span class="nc bnc" id="L423" title="All 2 branches missed.">			for (int i = startNum; i &lt; endNum; i++) {</span>
+<span class="nc" id="L424">				records.add(overTimeRecord.get(i));</span>
+			}
+<span class="nc" id="L426">			map.put(&quot;msg&quot;, &quot;已超期的图书&quot;);</span>
+<span class="nc" id="L427">			map.put(&quot;overTimeRecords&quot;, records);</span>
+<span class="nc" id="L428">			map.put(&quot;totalPage&quot;, totalPage);</span>
+<span class="nc" id="L429">			map.put(&quot;amounts&quot;, amounts);</span>
+		}
+<span class="nc" id="L431">		return map;</span>
+	}
+
+	@Override
+	public int addBorrowRecord(BorrowRecord borrowRecord) {
+<span class="fc" id="L436">		this.borrowListDAO.insertRecord(borrowRecord);</span>
+<span class="fc" id="L437">		borrowRecord.setBorrow_state(0);</span>
+<span class="fc" id="L438">		int id = this.borrowListDAO.selectRecordId(borrowRecord);</span>
+<span class="fc" id="L439">		this.borrowListDAO.updateShouldReturnTime(id);</span>
+<span class="fc" id="L440">		return 0;</span>
+	}
+
+	@Override
+	public Map&lt;String, Object&gt; getOnesWillOverTime() {
+
+<span class="nc" id="L446">		Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();</span>
+<span class="nc" id="L447">		Map&lt;String, Object&gt; tempMap = new HashMap&lt;String, Object&gt;();</span>
+<span class="nc" id="L448">		List&lt;BorrowRecord&gt; overTimeRecord = new ArrayList&lt;BorrowRecord&gt;();</span>
+<span class="nc" id="L449">		HttpServletRequest request = ServletActionContext.getRequest();</span>
+<span class="nc" id="L450">		HttpSession session = request.getSession();</span>
+<span class="nc" id="L451">		String stuNum = (String) session.getAttribute(&quot;stuNum&quot;);</span>
+<span class="nc" id="L452">		tempMap = this.getOnesCurrentRecords(stuNum);</span>
+<span class="nc" id="L453">		String msg = (String) tempMap.get(&quot;msg&quot;);</span>
+<span class="nc bnc" id="L454" title="All 2 branches missed.">		if (msg.equals(&quot;当前无借阅记录&quot;)) {</span>
+<span class="nc" id="L455">			map.put(&quot;msg&quot;, msg);</span>
+		} else {
+			@SuppressWarnings(&quot;unchecked&quot;)
+<span class="nc" id="L458">			List&lt;BorrowRecord&gt; record = (List&lt;BorrowRecord&gt;) tempMap.get(&quot;currentRecords&quot;);</span>
+<span class="nc bnc" id="L459" title="All 2 branches missed.">			for (int i = 0; i &lt; record.size(); i++) {</span>
+<span class="nc" id="L460">				Date nowDate = new Date();</span>
+<span class="nc" id="L461">				SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="nc" id="L462">				String shouldReturnTime = record.get(i).getShouldReturn_time();</span>
+<span class="nc" id="L463">				shouldReturnTime = shouldReturnTime.substring(0, 10);</span>
+<span class="nc" id="L464">				String nowTime = sdf.format(nowDate);</span>
+<span class="nc" id="L465">				long days = this.getIntervalDays(shouldReturnTime, nowTime);</span>
+<span class="nc bnc" id="L466" title="All 4 branches missed.">				if (days &lt;= 3 &amp;&amp; days &gt;= 0) {</span>
+<span class="nc" id="L467">					overTimeRecord.add(record.get(i));</span>
+				}
+			}
+<span class="nc bnc" id="L470" title="All 2 branches missed.">			if (overTimeRecord.isEmpty()) {</span>
+<span class="nc" id="L471">				map.put(&quot;mag&quot;, &quot;没有即将超期的图书&quot;);</span>
+			} else {
+<span class="nc" id="L473">				map.put(&quot;msg&quot;, &quot;即将超期图书&quot;);</span>
+<span class="nc" id="L474">				map.put(&quot;overTimeRecord&quot;, overTimeRecord);</span>
+			}
+		}
+<span class="nc" id="L477">		return map;</span>
+	}
+
+	@Override
+	public int modifyBorrowState(Integer id) {
+<span class="fc" id="L482">		this.borrowListDAO.updateBorrowState(id);</span>
+<span class="fc" id="L483">		return 0;</span>
+	}
+
+	@Override
+	public BorrowRecord getOneRecordById(Integer id) {
+
+<span class="nc" id="L489">		return this.borrowListDAO.selectOneRecordById(id);</span>
+	}
+
+	@Override
+	public int modifyReturnTime(Integer id) {
+<span class="fc" id="L494">		borrowListDAO.updateReturnTime(id);</span>
+<span class="fc" id="L495">		return 0;</span>
+	}
+
+	@Override
+	public int getOneRecordId(BorrowRecord borrowRecord) {
+<span class="nc" id="L500">		return borrowListDAO.selectRecordId(borrowRecord);</span>
+	}
+
+	@Override
+	public boolean getCurrenyRecordsByBookNum(String bookNum) {
+<span class="nc bnc" id="L505" title="All 2 branches missed.">		if (this.borrowListDAO.selectCurrentRecordByBookNum(bookNum).isEmpty()) {</span>
+<span class="nc" id="L506">			return true;</span>
+		} else {
+<span class="nc" id="L508">			return false;</span>
+		}
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201604210617</span></div></body></html>

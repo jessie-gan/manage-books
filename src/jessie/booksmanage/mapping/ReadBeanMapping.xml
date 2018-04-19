@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jessie.booksmanage.dao.ReadBeanDao" >
+  <resultMap id="BaseResultMap" type="jessie.booksmanage.pojo.ReadBeanRecord" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="stuNum" property="stuNum" jdbcType="VARCHAR" />
+    <result column="opreateTime" property="optionTime" jdbcType="VARCHAR" />
+    <result column="opreate" property="option" jdbcType="INTEGER" />
+    <result column="readBeans" property="readBean" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, stuNum, opreateTime, opreate,readBeans
+  </sql>
+  <select id="selectByStuNum" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from beansrecord
+    where stuNum = #{stuNum,jdbcType=VARCHAR}
+    ORDER BY opreateTime DESC
+    limit #{startNum,jdbcType=INTEGER},#{steps,jdbcType=INTEGER}
+  </select>
+    <select id="selectAllBeanRecord" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from beansrecord
+    ORDER BY opreateTime DESC
+    limit #{startNum,jdbcType=INTEGER},#{steps,jdbcType=INTEGER}
+  </select>
+  <insert id="insertBeanRecord" parameterType="jessie.booksmanage.pojo.ReadBeanRecord" >
+    insert into beansrecord (stuNum, opreate,readBeans)
+    values (#{stuNum,jdbcType=VARCHAR}, #{option,jdbcType=INTEGER}, #{readBean,jdbcType=INTEGER})
+  </insert>
+</mapper>

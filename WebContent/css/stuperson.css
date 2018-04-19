@@ -1,0 +1,197 @@
+/*sz-head*/
+@charset "utf-8";
+*{
+	padding:0px;
+	margin:0px;
+	font-family: "微软雅黑";
+}
+body{
+	background-color: #F8F8F8;
+	/*background-image: url(../img/scan.jpg);*/
+}
+.header{
+	width: 100%;
+	height: 60px;
+	background: #00688B;
+}
+.head{
+	width: 90%;
+	height: 60px;
+	margin: 0 auto;
+}
+.headleft{
+	position:relative;
+	float:left;
+	width:200px;
+}
+.headright{
+	float:right;
+	width:60px;
+	
+}
+.right_font{
+	margin: 0px;
+	color: #FFF;
+	font-size: 14px;
+	line-height: 60px;
+	font-family: "微软雅黑";
+	cursor:pointer;
+}
+.title_font{
+	margin: 0px;
+	color: #FFF;
+	font-size: 28px;
+	line-height: 60px;
+	font-family: "微软雅黑";
+}
+/*person*/
+.sz_selsct{
+	width: 80px;
+}
+.person{
+	width: 100%;
+	height: 40px;
+}
+.right{
+	position: relative;
+	float: left;
+	font-family: "微软雅黑";
+	margin-top: 16px;
+}
+.float{
+	position: relative;
+	float: right;
+	font-family: "微软雅黑";
+	font-style: oblique;
+	margin-top: 10px;
+}
+.person_div{
+	width: 96%;
+	margin: 0 auto;
+	height: 48px;
+	border-bottom: 1px solid #BEBEBE;
+}
+.imgmail{
+	width: 30px;
+	padding-top: 6px;
+}
+.sz_mailspan{
+	padding-right: 6px;
+	padding-left: 6px;
+	color: #00688B;
+}
+.imgperson{
+	width: 24px;
+	height: 20px;
+}
+.ex1{
+	color: red;
+	font-style: bolder;
+	text-decoration: underline;
+}
+a.ex1:hover,a.ex1:active {
+	color:#FFF;
+}
+.guide{
+	color: red;
+}
+/*stuperson news*/
+.sz_bookbody{
+	width: 100%;
+	margin-top: 6px;
+}
+.sz_bookset{
+	width:96%;
+	margin: 0 auto;
+	margin-top: 26px;
+
+}
+.sz_set{
+	width: 100%;
+}
+.sz_setleft{
+	width: 14%;
+	min-width: 120px;
+	max-width: 200px;
+	height: 226px;
+	background: #E7E7E7;
+	position: relative;
+	float: left;
+	border: 1px solid #BEBEBE;
+}
+.sz_setright{
+	width: 85%;
+	min-width: 300px;
+	display: inline-block;
+	float: right;
+	border: 1px solid #BEBEBE;
+	padding-left: 30px;
+	padding-top: 10px;
+	background: #F5F5DC;
+}
+/*left*/
+.sz_setbtn{
+	list-style: none;
+	
+}
+.setbtn{
+	width: 100%;
+	border: 1px;
+	background: #00688B;
+	color: #FFF;
+	border-radius: 0px;
+	height: 45px;
+	border-bottom: 1px solid #BEBEBE;
+	font-family: "微软雅黑";
+	font-size: 15px;
+}
+
+/*涓汉璧勬枡*/
+.person_news{
+	width: 400px;
+	padding-top: 14px;
+}
+.news_tail{
+	list-style: none;
+	width: 400px;
+}
+.news_tail li{
+	margin-bottom: 18px;
+}
+.label_float{
+	float: left;
+	margin-top: 8px;
+	margin-right: 20px;
+	color: #696969;
+	font-family: "微软雅黑";
+	font-size: 15px;
+}
+.form_input{
+	width: 240px;	
+}
+.sz_spanbtnli{
+	margin-top: 28px;
+}
+.sz_spanbtn1{
+	margin-right: 20px;
+	color: #FFF;
+	background: #00688B;
+	margin-left: 100px;
+}
+.sz_spanbtn{
+	margin-right: 20px;
+	color: #FFF;
+	background: #00688B;
+}
+/*淇敼瀵嗙爜*/
+/*鍊熼槄鍒楄〃*/
+.lendlist{
+	margin-right: 30px;
+}
+.lendhead{
+	font-size: 15px;
+	text-align: center;
+}
+.nowlend{
+	margin-top: 10px;
+}

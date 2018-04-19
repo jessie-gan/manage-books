@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>BookServiceImpl.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">test</a> &gt; <a href="index.source.html" class="el_package">jessie.booksmanage.service.impl</a> &gt; <span class="el_source">BookServiceImpl.java</span></div><h1>BookServiceImpl.java</h1><pre class="source lang-java linenums">package jessie.booksmanage.service.impl;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import org.springframework.stereotype.Service;
+
+import jessie.booksmanage.dao.BookDAO;
+import jessie.booksmanage.pojo.Book;
+import jessie.booksmanage.service.BookService;
+
+@Service(&quot;bookService&quot;)
+<span class="fc" id="L15">public class BookServiceImpl implements BookService {</span>
+
+	@Resource
+	private BookDAO bookDao;
+
+	@Override
+	public Book getBookByBookNum(String book_num) {
+		// TODO Auto-generated method stub
+<span class="fc" id="L23">		return this.bookDao.selectBookByNum(book_num);</span>
+	}
+
+	@Override
+	public Book getBookByBookId(int book_id) {
+
+<span class="nc" id="L29">		return this.bookDao.selectBookById(book_id);</span>
+	}
+
+	@Override
+	public int getBookAmounts() {
+
+<span class="nc" id="L35">		return this.bookDao.selectBookAmounts();</span>
+	}
+
+	@Override
+	public Map&lt;String, Object&gt; getAllBooks(int page, int steps) {
+
+<span class="fc" id="L41">		Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();</span>
+<span class="fc" id="L42">		Map&lt;String, Object&gt; parameterMap = new HashMap&lt;String, Object&gt;();</span>
+<span class="fc" id="L43">		int startNum = 0;</span>
+<span class="fc" id="L44">		startNum = (page - 1) * 10;</span>
+<span class="fc" id="L45">		parameterMap.put(&quot;startNum&quot;, startNum);</span>
+<span class="fc" id="L46">		parameterMap.put(&quot;steps&quot;, steps);</span>
+<span class="fc" id="L47">		List&lt;Book&gt; bookList = this.bookDao.selectAllBooks(parameterMap);</span>
+<span class="fc" id="L48">		Integer bookAmounts = this.bookDao.selectBookAmounts();</span>
+<span class="fc" id="L49">		int pageNum = 1;</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">		if (bookList.isEmpty()) {</span>
+<span class="fc" id="L51">			map.put(&quot;msg&quot;, &quot;当前没有图书&quot;);</span>
+		} else {
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">			if (bookAmounts % steps == 0) {</span>
+<span class="nc" id="L54">				pageNum = bookAmounts / steps;</span>
+			} else {
+<span class="fc" id="L56">				pageNum = (bookAmounts / steps) + 1;</span>
+			}
+<span class="fc" id="L58">			map.put(&quot;msg&quot;, &quot;获取所有书籍成功&quot;);</span>
+<span class="fc" id="L59">			map.put(&quot;bookList&quot;, bookList);</span>
+<span class="fc" id="L60">			map.put(&quot;totalPage&quot;, pageNum);</span>
+<span class="fc" id="L61">			map.put(&quot;amounts&quot;, bookAmounts);</span>
+		}
+<span class="fc" id="L63">		return map;</span>
+	}
+
+	@Override
+	public int Addbook(String bookNum, String bookName, String author, String bookPress, String summary) {
+<span class="fc" id="L68">		Book book = this.bookDao.selectBookByNum(bookNum);</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">		if (book != null) {</span>
+<span class="fc" id="L70">			return 0;</span>
+		} else {
+<span class="fc" id="L72">			book = new Book();</span>
+<span class="fc" id="L73">			book.setBook_num(bookNum);</span>
+<span class="fc" id="L74">			book.setBook_name(bookName);</span>
+<span class="fc" id="L75">			book.setBook_author(author);</span>
+<span class="fc" id="L76">			book.setBook_press(bookPress);</span>
+<span class="fc" id="L77">			book.setBook_summary(summary);</span>
+<span class="fc" id="L78">			this.bookDao.insertBook(book);</span>
+<span class="fc" id="L79">			return 1;</span>
+		}
+	}
+
+	@Override
+	public int modifyBookInfo(String bookNum, String bookName, String author, String bookPress, String summary) {
+<span class="nc" id="L85">		Book book = this.bookDao.selectBookByNum(bookNum);</span>
+<span class="nc" id="L86">		book.setBook_name(bookName);</span>
+<span class="nc" id="L87">		book.setBook_author(author);</span>
+<span class="nc" id="L88">		book.setBook_press(bookPress);</span>
+<span class="nc" id="L89">		book.setBook_summary(summary);</span>
+<span class="nc" id="L90">		this.bookDao.updateBook(book);</span>
+<span class="nc" id="L91">		return 1;</span>
+	}
+
+	@Override
+	public int modifyBookState(String bookNum, int state) {
+<span class="fc" id="L96">		Book book = this.getBookByBookNum(bookNum);</span>
+<span class="fc" id="L97">		book.setBook_state(state);</span>
+<span class="fc" id="L98">		return this.bookDao.updateBookState(book);</span>
+	}
+
+	@Override
+	public int deleteBook(String book_num) {
+		// TODO Auto-generated method stub
+<span class="nc" id="L104">		return this.bookDao.deleteBook(book_num);</span>
+	}
+
+	@Override
+	public String getMaxBookNum() {
+		// TODO Auto-generated method stub
+<span class="nc" id="L110">		return this.bookDao.selectMaxBookNum();</span>
+	}
+
+	@Override
+	public Map&lt;String, Object&gt; getBookByBookName(String bookName, int page, int steps) {
+		// TODO Auto-generated method stub
+<span class="fc" id="L116">		Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();</span>
+<span class="fc" id="L117">		Map&lt;String, Object&gt; parameterMap = new HashMap&lt;String, Object&gt;();</span>
+<span class="fc" id="L118">		Map&lt;String, Object&gt; parameterMap2 = new HashMap&lt;String, Object&gt;();</span>
+<span class="fc" id="L119">		int startNum = 0;</span>
+<span class="fc" id="L120">		int pageNum=1;</span>
+<span class="fc" id="L121">		startNum = (page - 1) * 10;</span>
+<span class="fc" id="L122">		parameterMap.put(&quot;startNum&quot;, startNum);</span>
+<span class="fc" id="L123">		parameterMap.put(&quot;steps&quot;, steps);</span>
+<span class="fc" id="L124">		parameterMap.put(&quot;bookName&quot;, bookName);</span>
+<span class="fc" id="L125">		parameterMap2.put(&quot;startNum&quot;, 0);</span>
+<span class="fc" id="L126">		parameterMap2.put(&quot;steps&quot;, this.bookDao.selectBookAmounts());</span>
+<span class="fc" id="L127">		parameterMap2.put(&quot;bookName&quot;, bookName);</span>
+	
+<span class="fc" id="L129">		List&lt;Book&gt; searchResult = this.bookDao.selectBookByName(parameterMap);</span>
+<span class="fc" id="L130">		List&lt;Book&gt; allResult = this.bookDao.selectBookByName(parameterMap2);</span>
+<span class="fc" id="L131">		int amounts = allResult.size();</span>
+<span class="fc bfc" id="L132" title="All 2 branches covered.">		if (searchResult.isEmpty()) {</span>
+<span class="fc" id="L133">			map.put(&quot;msg&quot;, &quot;当前没有符合条件的图书&quot;);</span>
+<span class="fc" id="L134">			return map;</span>
+		} else {
+<span class="pc bpc" id="L136" title="1 of 2 branches missed.">			if (amounts % steps == 0) {</span>
+<span class="nc" id="L137">				pageNum = amounts / steps;</span>
+			} else {
+<span class="fc" id="L139">				pageNum = (amounts / steps) + 1;</span>
+			}
+		}
+<span class="fc" id="L142">		map.put(&quot;msg&quot;, &quot;获取图书成功&quot;);</span>
+<span class="fc" id="L143">		map.put(&quot;pageNum&quot;, pageNum);</span>
+<span class="fc" id="L144">		map.put(&quot;searchResult&quot;, searchResult);</span>
+<span class="fc" id="L145">		return map;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201604210617</span></div></body></html>

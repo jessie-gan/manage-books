@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.devMode" value="true" />
+	<!-- 文件上传最大值限制为100M -->
+	<constant name="struts.multipart.maxSize" value="104857600" />
+
+	<package name="jessie.booksmanage" namespace="/"
+		extends="struts-default,json-default,convention-default,spring-default">
+		<!--  
+		<interceptors>
+			<interceptor name="LoginInter" class="nsims.intercepter.LoginIntercepter" />
+			<interceptor-stack name="jessieStack">
+				<interceptor-ref name="LoginInter">
+					<param name="excludeMethods">login,getuserinfo,logout</param>
+				</interceptor-ref>
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="jessieStack" />
+			-->
+		<global-results>
+			<result name="login" type="redirect">/index.html</result>
+			<result name="success" type="json" />
+			<result name="error">/error.html</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping exception="java.lang.Exception"
+				result="error" />
+		</global-exception-mappings>
+	
+	
+	</package>
+
+</struts>

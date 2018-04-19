@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>图书管理系统</title>
+		<link rel="icon" href="../img/1176978.png"/>
+		<link rel="stylesheet" href="../css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../css/stuperson.css" />
+		<link rel="stylesheet" href="../css/admin_detail.css" />
+	</head>
+	<body>
+		<div class="header">
+			<div class="head">
+				<p class="title_font">图书管理系统</p>
+			</div>
+		</div>
+		<div class="person">
+			<div class="person_div">
+				<div class="right">
+					<span class="glyphicon glyphicon-map-marker guide"></span>&nbsp;<a href="admin-manage-addbook.html">管理</a>&nbsp;/&nbsp;<span>书籍信息</span>
+				</div>
+				<div class="float">
+					<a href="#"><img class="imgmail" src="../img/mail.png"/></a><span class="sz_mailspan">欢迎您<span id="name">管理员</span>&nbsp;&nbsp;<span id="exit" style="cursor:pointer;"><span class="glyphicon glyphicon-log-out"></span>&nbsp;退出</span></span>
+				</div>
+			</div>
+		</div>
+		<div class="admin_detail">
+			<div class="admin_detaildiv">
+				<div class="admin-div">
+					<div class="admin-divleft">
+						<img src="../img/person.png" />
+					</div>
+					<div class="admin-divright">
+						<ul>
+							<li class="col-md-offset-1"><span>&nbsp;&nbsp;&nbsp;&nbsp;图书编号:</span><input type="text" id="booknum" class="form-control inputtxt" style="font-size:13px;"/></li>
+							<li class="col-md-offset-2"><span>书名:</span><input id="bookname" type="text" class="form-control inputtxt" style="font-size:13px;"/></li>
+							<li class="col-md-offset-2"><span>作者:</span><input id="bookauthor" type="text" class="form-control inputtxt" style="font-size:13px;"/></li>
+							<li class="col-md-offset-1"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;出版社:</span><input id="bookpress" type="text" class="form-control inputtxt" style="font-size:13px;"/></li>
+							<li class="col-md-offset-2"><span>简介:</span><textarea id="booksum" type="text" rows="5" cols="60" class="form-control inputtxterea" style="font-size:13px;"></textarea></li>
+						</ul>
+						<div class="admin-sava-btn">
+							<button id="Save_btn" class="btn btn-default lendbtn" type="button"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;保存</button>
+						</div>	
+					</div>
+				</div>		
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../js/jquery-1.11.1.js" ></script>
+	<script type="text/javascript" src="../js/bootstrap.min.js" ></script>
+	<script type="text/javascript" src="../js/admin-exit.js"></script>
+	<script type="text/javascript" src="../js/admin-mange-bookdetaile.js" ></script>
+</html>

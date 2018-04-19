@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>BorrowServiceImpl.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">test</a> &gt; <a href="index.source.html" class="el_package">jessie.booksmanage.service.impl</a> &gt; <span class="el_source">BorrowServiceImpl.java</span></div><h1>BorrowServiceImpl.java</h1><pre class="source lang-java linenums">package jessie.booksmanage.service.impl;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import jessie.booksmanage.pojo.BorrowRecord;
+import jessie.booksmanage.pojo.User;
+import jessie.booksmanage.service.BookService;
+import jessie.booksmanage.service.BorrowService;
+import jessie.booksmanage.service.ReadBeanRecordService;
+import jessie.booksmanage.service.RecordService;
+import jessie.booksmanage.service.UserService;
+
+@Service(&quot;borrowService&quot;)
+<span class="fc" id="L21">public class BorrowServiceImpl implements BorrowService {</span>
+	@Resource
+	BookService bookService;
+	@Resource
+	RecordService recordService;
+	@Resource
+	ReadBeanRecordService readBeanRecordService;
+	@Resource
+	UserService userService;
+
+	@SuppressWarnings(&quot;unchecked&quot;)
+	@Override
+	public Map&lt;String, Object&gt; borrowBook(String bookNum, String stuNum) {
+<span class="fc" id="L34">		Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();</span>
+<span class="fc" id="L35">		Map&lt;String, Object&gt; tempMap = new HashMap&lt;String, Object&gt;();</span>
+<span class="fc" id="L36">		List&lt;BorrowRecord&gt; records = new ArrayList&lt;BorrowRecord&gt;();</span>
+		int amounts;
+<span class="fc" id="L38">		tempMap = recordService.getOnesCurrentRecords(stuNum);</span>
+<span class="fc" id="L39">		records = (List&lt;BorrowRecord&gt;)tempMap.get(&quot;currentRecords&quot;);</span>
+<span class="fc" id="L40">		amounts = records.size();</span>
+<span class="pc bpc" id="L41" title="1 of 2 branches missed.">		if (amounts &gt; 15) {</span>
+<span class="nc" id="L42">			map.put(&quot;msg&quot;, &quot;已达最大借阅量（15本）,请归还后再借阅！&quot;);</span>
+		} else {
+<span class="fc" id="L44">			bookService.modifyBookState(bookNum, 1);</span>
+<span class="fc" id="L45">			BorrowRecord borrowRecord = new BorrowRecord();</span>
+<span class="fc" id="L46">			borrowRecord.setBorrow_bookNum(bookNum);</span>
+<span class="fc" id="L47">			borrowRecord.setBorrow_stuNum(stuNum);</span>
+<span class="fc" id="L48">			recordService.addBorrowRecord(borrowRecord);</span>
+<span class="fc" id="L49">			User user = userService.getUserByStudentNum(stuNum);</span>
+<span class="fc" id="L50">			int bean = user.getReadBean();</span>
+<span class="fc" id="L51">			userService.modifyUserReadBean(stuNum, bean + 5);</span>
+<span class="fc" id="L52">			readBeanRecordService.AddReadBeanRecord(stuNum, 0, user.getReadBean());</span>
+<span class="fc" id="L53">			map.put(&quot;msg&quot;, &quot;借书成功，获得5个R豆&quot;);</span>
+		}
+<span class="fc" id="L55">		return map;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201604210617</span></div></body></html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>图书管理系统</title>
+		<link rel="icon" href="../img/1176978.png"/>
+		<link rel="stylesheet" href="../css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../css/leftguide.css" />
+		<link rel="stylesheet" href="../css/admin-manage-addbook.css" />
+
+	</head>
+
+	<body id="bg">
+		<div class="head1">
+			<div class="header1">
+				<p class="title_font">图书管理系统</p>
+			</div>
+		</div>
+		<div class="person">
+			<div class="person_div">
+				<div class="right">
+					<span class="glyphicon glyphicon-map-marker guide"></span>&nbsp;管理员&nbsp;/&nbsp;<span>管理&nbsp;/&nbsp;</span><span>添加图书</span>
+				</div>
+				<div class="float">
+					<a href="#"><img class="imgmail" src="../img/mail.png" /></a><span class="sz_mailspan">欢迎您<span id="name">管理员</span>&nbsp;&nbsp;<span id="exit" style="cursor:pointer;"><span class="glyphicon glyphicon-log-out"></span>&nbsp;退出</span></span>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="leftsidebar_box">
+				<div class="line"></div>
+
+				<dl class="custom">
+					<dt onClick="changeImage()">图书管理</dt>
+					<dd class="first_dd"><a href="admin-manage-addbook.html">添加图书</a></dd>
+					<dd><a href="admin-manage-listbook.html">显示书籍列表</a></dd>
+					<dd><a href="admin-manage-returnbook.html">查看最近应还</a></dd>
+					<dd><a href="admin-manage-latestbook.html">查看最近借阅</a></dd>
+					<dd><a href="admin-manage-lendlist.html">查看借阅列表</a></dd>
+					<dd><a href="admin-manage-historylend.html">查看历史借阅</a></dd>
+				</dl>
+
+				<dl class="syetem_management">
+					<dt>用户管理</dt>
+					<dd class="first_dd"><a href="admin-manage-totaluser.html">查看所有用户</a></dd>
+				</dl>
+
+			</div>
+		</div>
+		<div class="rightsidebar">
+			<div class="right_div">
+				<div class="addbook">
+					<ul class="news_tail" >
+						<li><label class="label_float  col-md-offset-1" style="font-size:13px;">&nbsp;&nbsp;&nbsp;最大图书编号:</label><input id="maxNum" type="text" class="form-control form_input" disabled style="font-size:13px;"/></li>
+						<li><label class="label_float  col-md-offset-2" style="font-size:13px;">&nbsp;图书编号:</label><input id="Num" type="text" class="form-control form_input" placeholder="请输入图书编号" style="font-size:13px;"/></li>
+						<li><label class="label_float col-md-offset-2" style="font-size:13px;">&nbsp;&nbsp;&nbsp;&nbsp;出版社:</label><input id="CB" type="text" class="form-control form_input" placeholder="请输入图书出版社" style="font-size:13px;"/></li>
+						<li><label class="label_float  col-md-offset-3" style="font-size:13px;">书名:</label><input id="Bname" type="text" class="form-control form_input" placeholder="请输入图书名" style="font-size:13px;"/></li>
+						<li><label class="label_float  col-md-offset-3" style="font-size:13px;">作者:</label><input id="Aname" type="text" class="form-control form_input" placeholder="请输入图书作者" style="font-size:13px;"/></li>
+						<li><label class="label_float  col-md-offset-3" style="font-size:13px;">简介:</label><textarea id="Details" class="form-control booktext" rows="5" cols="60" placeholder="请输入图书简介" style="font-size:13px;"></textarea></li>
+						<!-- <li><label class="label_float  col-md-offset-3" style="font-size:13px;">图片:</label><input id="Bimg" type="file" class="sz_imgput" title="点击选择头像图片" /></li> -->
+						<li>
+							<label class="label_float  col-md-offset-1" style="font-size:13px;">导入书籍信息表格:</label>
+							<form name="myform" action="fileupload" method="post" enctype="multipart/form-data">
+       							<input id="exclfile" type="file" name="myfile">
+       							<input style="display:none;" type="submit" name="submit" value="Commit">
+    						</form>
+						</li>
+						<li class="sz_spanbtnli"><button id="addBook" class="btn btn-default sz_spanbtn1"><span class="glyphicon glyphicon-plus"></span>&nbsp;添加</button></li>
+					<li class="sz_spanbtnli"><button id="addBooks" class="btn btn-default sz_spanbtn1"><span class="glyphicon glyphicon-plus"></span>&nbsp;导入</button></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/admin-exit.js"></script>
+	<script type="text/javascript" src="../js/admin-manage-addbooks.js"></script>
+
+</html>

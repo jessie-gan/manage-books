@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>AdminShowAllBooksAction.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">test</a> &gt; <a href="index.source.html" class="el_package">jessie.booksmanage.action</a> &gt; <span class="el_source">AdminShowAllBooksAction.java</span></div><h1>AdminShowAllBooksAction.java</h1><pre class="source lang-java linenums">package jessie.booksmanage.action;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.Namespace;
+import org.apache.struts2.convention.annotation.ParentPackage;
+import org.apache.struts2.convention.annotation.Result;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
+import jessie.booksmanage.service.BookService;
+import jessie.booksmanage.utils.SendToJson;
+@Controller
+@Namespace(&quot;/manage&quot;)
+@ParentPackage(&quot;jessie.booksmanage&quot;)
+@Scope(&quot;request&quot;)
+<span class="nc" id="L23">public class AdminShowAllBooksAction {</span>
+	private int page;
+<span class="nc" id="L25">	int steps = 10;</span>
+	@Autowired
+	BookService bookService;
+	@Action(value = &quot;showAllBooks&quot;, results = { @Result(name = &quot;success&quot;, type = &quot;json&quot; )})
+	public String showBooks(){
+<span class="nc" id="L30">		HttpServletResponse response = ServletActionContext.getResponse();</span>
+<span class="nc" id="L31">		Map&lt;String,Object&gt; map = new HashMap&lt;String,Object&gt;();</span>
+<span class="nc" id="L32">		map = bookService.getAllBooks(page,steps);</span>
+<span class="nc" id="L33">		SendToJson.send(response, map);</span>
+<span class="nc" id="L34">		return &quot;success&quot;;</span>
+	}
+	public int getPage() {
+<span class="nc" id="L37">		return page;</span>
+	}
+	public void setPage(int page) {
+<span class="nc" id="L40">		this.page = page;</span>
+<span class="nc" id="L41">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201604210617</span></div></body></html>

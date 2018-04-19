@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jessie.booksmanage.dao.AdminUserDAO">
+
+	<resultMap id="BaseResultMap" type="jessie.booksmanage.pojo.AdminUser">
+		<id column="aduser_id" property="aduser_id" jdbcType="INTEGER" />
+		<result column="ad_username" property="ad_username" jdbcType="VARCHAR" />
+		<result column="ad_password" property="ad_password" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		aduser_id, ad_username, ad_password
+	</sql>
+	<select id="selectByAdminUsername" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from admin_user
+		where ad_username = #{ad_username,jdbcType=INTEGER}
+	</select>
+	<update id="updateByPrimeryKey" parameterType="java.lang.Integer">
+		update admin_user
+		set ad_username=#{ad_username,jdbcType=VARCHAR},
+		ad_password=#{ad_password,jdbcType=VARCHAR},
+		where aduser_id =#{ad_id,jdbcType=INTEGER}
+	</update>
+</mapper>

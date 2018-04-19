@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>图书管理系统</title>
+		<link rel="icon" href="../img/1176978.png"/>
+		<link rel="stylesheet" href="../css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../css/stuperson.css" />
+		<link rel="stylesheet" href="../css/commom.css" />
+	</head>
+	<body>
+		<div class="header">
+			<div class="head">
+				<div class="headleft">
+					<p class="title_font">图书管理系统</p>
+				</div>
+				<div class="headright">
+				</div>
+			</div>	
+		</div>
+		<div class="person">
+			<div class="person_div">
+				<div class="right">
+					<span class="glyphicon glyphicon-map-marker guide"></span>&nbsp;<a href="studenthunt.html">首页</a>&nbsp;/&nbsp;<span>个人中心</span>
+				</div>
+				<div class="float">
+					<a href="totallend.html"><img class="imgmail" src="../img/mail.png"/></a><span class="sz_mailspan">欢迎您<span id="name"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span id="exit" style="color:"><span class="glyphicon glyphicon-log-out"></span>&nbsp;退出</span></span>
+				</div>
+			</div>
+		</div>
+		<div class="sz_bookbody">
+			<div class="sz_bookset">
+				<div class="sz_set">
+					<div class="sz_setleft">
+						<ul class="sz_setbtn">
+							<li><input class="setbtn btn" id="news" type="button" value="个人资料"/></li>
+							<li><input class="setbtn btn" id="passw" type="button" value="修改密码"/></li>
+							<li><input class="setbtn btn" id="lend" type="button" value="当前借阅"/></li>
+							<li><input class="setbtn btn" id="history" type="button" value="借阅历史"/></li>
+							<li><input class="setbtn btn" id="fork" type="button" value="R豆记录"/></li>
+						</ul>
+					</div>
+					<div class="sz_setright alert alert-danger alert-dismissible " style="background:#f2dede;padding-top:10px;" role="alert">
+ 						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  						<strong>当前R豆余额：</strong> <strong id="R"></strong> 
+					</div>
+					<div class="sz_setright">
+						<div class="nowlend">
+							<div class="lendlist form-group" style="font-size:13px;">
+								<table class="table table-bordered table-hover table-condensed">
+									<tr title="1">
+										<th>序号</th>
+										<th>时间</th>
+										<th>操作</th>
+										<th>R豆</th>
+										<th>剩余R豆</th>
+									</tr>
+									<tbody id="Beantable">
+									</tbody>
+								</table>
+								<div class="nowlend enddiv">
+									<input type="button" class="btn btn-default btn-sm btnend" value="当前第"/>
+									<input type="button" class="btn btn-default btn-sm btnend" id="currentPage" value="1"/>
+									<input type="button" class="btn btn-default btn-sm btnend" value="页"/>
+									<input type="button" class="btn btn-default btn-sm btnend" value="总共"/>
+									<input type="button" class="btn btn-default btn-sm btnend" id="totalPage" value="3"/>
+									<input type="button" class="btn btn-default btn-sm btnend" value="页"/>
+									<input type="button" class="btn btn-default btn-sm btnend" id="upPage" value="上一页"/>
+									<input type="button" class="btn btn-default btn-sm btnend" id="nextPage" value="下一页"/>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>				
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../js/jquery-1.11.1.js" ></script>
+	<script type="text/javascript" src="../js/bootstrap.min.js" ></script>
+	<script type="text/javascript" src="../js/Stucommom.js" ></script>
+	<script type="text/javascript" src="../js/stu-exit.js" ></script>
+	<script type="text/javascript" src="../js/Incommom.js" ></script>
+	<script type="text/javascript" src="../js/stufork.js" ></script>
+	<script type="text/javascript" src="../js/Page3.js" ></script>
+</html>

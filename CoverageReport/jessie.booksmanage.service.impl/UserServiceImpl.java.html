@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>UserServiceImpl.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">test</a> &gt; <a href="index.source.html" class="el_package">jessie.booksmanage.service.impl</a> &gt; <span class="el_source">UserServiceImpl.java</span></div><h1>UserServiceImpl.java</h1><pre class="source lang-java linenums">package jessie.booksmanage.service.impl;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.struts2.ServletActionContext;
+import org.springframework.stereotype.Service;
+
+import jessie.booksmanage.dao.UserDAO;
+import jessie.booksmanage.pojo.User;
+import jessie.booksmanage.service.UserService;
+
+@Service(&quot;userService&quot;)
+<span class="fc" id="L19">public class UserServiceImpl implements UserService {</span>
+	
+	@Resource
+	private UserDAO userDao;
+	public User getUserByStudentNum(String studentNum) {
+		
+<span class="fc" id="L25">		return this.userDao.selectByStudentNum(studentNum);</span>
+	}
+
+	public int modifyUserPassword(String psw) {
+<span class="nc" id="L29">		String stuNum = (String)ServletActionContext.getRequest().getSession().getAttribute(&quot;stuNum&quot;);</span>
+<span class="nc" id="L30">		User user = userDao.selectByStudentNum(stuNum);</span>
+<span class="nc" id="L31">		user.setPassword(psw);</span>
+<span class="nc" id="L32">		this.userDao.updateUser(user);</span>
+<span class="nc" id="L33">		return 0;</span>
+	}
+
+
+	public int deleteUser(String studentNum) {
+<span class="fc" id="L38">		this.userDao.deleteUser(studentNum);</span>
+<span class="fc" id="L39">		return 0;</span>
+	}
+
+	@Override
+	public Map&lt;String, Object&gt; getAllUsersByPage(int page,int steps) {
+<span class="fc" id="L44">		Map&lt;String,Object&gt; map = new HashMap&lt;String,Object&gt;();</span>
+<span class="fc" id="L45">		Map&lt;String,Object&gt; parameterMap = new HashMap&lt;String, Object&gt;();</span>
+<span class="fc" id="L46">		int startNum = 0;</span>
+<span class="fc" id="L47">		startNum = (page-1)*steps;</span>
+<span class="fc" id="L48">		parameterMap.put(&quot;startNum&quot;, startNum);</span>
+<span class="fc" id="L49">		parameterMap.put(&quot;steps&quot;, steps);</span>
+<span class="fc" id="L50">		List&lt;User&gt; users = this.userDao.selectAllUsers(parameterMap);</span>
+<span class="fc" id="L51">		int amounts = this.userDao.selectAllUserAmounts();</span>
+<span class="fc" id="L52">		int pageNum = 1;</span>
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">		if(users.isEmpty()){</span>
+<span class="nc" id="L54">			map.put(&quot;msg&quot;, &quot;当前无用户&quot;);</span>
+		}else{
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">			if (amounts % steps == 0) {</span>
+<span class="nc" id="L57">				pageNum = amounts / steps;</span>
+			} else {
+<span class="fc" id="L59">				pageNum = (amounts / steps) + 1;</span>
+			}
+<span class="fc" id="L61">			map.put(&quot;msg&quot;, &quot;获取全部用户&quot;);</span>
+<span class="fc" id="L62">			map.put(&quot;allUsers&quot;, users);</span>
+<span class="fc" id="L63">			map.put(&quot;totalPage&quot;, pageNum);</span>
+<span class="fc" id="L64">			map.put(&quot;amounts&quot;, amounts);</span>
+		}
+<span class="fc" id="L66">		return map;</span>
+	}
+
+	@Override
+	public Map&lt;String, Object&gt; check(String studentNum) {
+<span class="fc" id="L71">		Map&lt;String,Object&gt; map = new HashMap&lt;String,Object&gt;();</span>
+<span class="fc" id="L72">		User user = this.getUserByStudentNum(studentNum);</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">		if(user==null){</span>
+<span class="fc" id="L74">			map.put(&quot;info&quot;, &quot;用户不存在&quot;);</span>
+		}else{
+<span class="fc" id="L76">			map.put(&quot;info&quot;, &quot;用户存在&quot;);</span>
+<span class="fc" id="L77">			map.put(&quot;user&quot;, user);</span>
+		}
+<span class="fc" id="L79">		return map;</span>
+	}
+
+	@Override
+	public Map&lt;String, Object&gt; registerUser(String stuNum, String userName, String psw) {
+		// TODO Auto-generated method stub
+<span class="fc" id="L85">		Map&lt;String,Object&gt; map = new HashMap&lt;String,Object&gt;();</span>
+<span class="fc" id="L86">		User user = this.getUserByStudentNum(stuNum);</span>
+<span class="fc bfc" id="L87" title="All 2 branches covered.">		if(user != null){</span>
+<span class="fc" id="L88">			map.put(&quot;msg&quot;, &quot;用户名已存在&quot;);</span>
+		}else{
+<span class="fc" id="L90">			user = new User();</span>
+<span class="fc" id="L91">			user.setStudent_num(stuNum);</span>
+<span class="fc" id="L92">			user.setUsername(userName);</span>
+<span class="fc" id="L93">			user.setPassword(psw);</span>
+<span class="fc" id="L94">			user.setReadBean(0);</span>
+<span class="fc" id="L95">			this.userDao.insertUser(user);</span>
+<span class="fc" id="L96">			this.userDao.insertUserDetails(stuNum);</span>
+<span class="fc" id="L97">			map.put(&quot;user&quot;, user);</span>
+<span class="fc" id="L98">			map.put(&quot;msg&quot;, &quot;注册成功&quot;);</span>
+		}
+<span class="fc" id="L100">		return map;</span>
+	}
+
+	@Override
+	public Map&lt;String, Object&gt; modifyUserDetails(String userName, String realName, String sex, String email,String setTel,
+			String gradeClass, String major) {
+		// TODO Auto-generated method stub
+<span class="nc" id="L107">		HttpServletRequest request = ServletActionContext.getRequest();</span>
+<span class="nc" id="L108">		HttpSession session = request.getSession();</span>
+<span class="nc" id="L109">		Map&lt;String, Object&gt; map = new HashMap&lt;String,Object&gt;();</span>
+<span class="nc" id="L110">		String stuNum = (String)session.getAttribute(&quot;stuNum&quot;);</span>
+<span class="nc" id="L111">		User user = userDao.selectByStudentNum(stuNum);</span>
+<span class="nc" id="L112">		user.setUsername(userName);</span>
+<span class="nc" id="L113">		user.setReal_name(realName);</span>
+<span class="nc" id="L114">		user.setSex(sex);</span>
+<span class="nc" id="L115">		user.setEmail(email);</span>
+<span class="nc" id="L116">		user.setTel(setTel);</span>
+<span class="nc" id="L117">		user.setGradeClass(gradeClass);</span>
+<span class="nc" id="L118">		user.setMajor(major);</span>
+<span class="nc" id="L119">		this.userDao.updateUserDetails(user);</span>
+<span class="nc" id="L120">		map.put(&quot;msg&quot;, &quot;修改成功&quot;);</span>
+<span class="nc" id="L121">		map.put(&quot;user&quot;, user);</span>
+<span class="nc" id="L122">		return map;</span>
+	}
+
+	@Override
+	public int modifyUserReadBean(String stuNum, int bean) {
+<span class="fc" id="L127">		Map&lt;String, Object&gt; map = new HashMap&lt;String,Object&gt;();</span>
+<span class="fc" id="L128">		User user = userDao.selectByStudentNum(stuNum);</span>
+<span class="fc" id="L129">		user.setReadBean(bean);</span>
+<span class="fc" id="L130">		this.userDao.updateUserReanBean(user);</span>
+<span class="fc" id="L131">		return 0;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201604210617</span></div></body></html>

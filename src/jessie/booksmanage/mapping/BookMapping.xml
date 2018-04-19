@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jessie.booksmanage.dao.BookDAO">
+	<resultMap id="BaseResultMap" type="jessie.booksmanage.pojo.Book">
+		<id column="book_id" property="book_id" jdbcType="INTEGER" />
+		<result column="book_num" property="book_num" jdbcType="VARCHAR" />
+		<result column="book_name" property="book_name" jdbcType="VARCHAR" />
+		<result column="book_author" property="book_author" jdbcType="VARCHAR" />
+		<result column="book_press" property="book_press" jdbcType="VARCHAR" />
+		<result column="book_summary" property="book_summary" jdbcType="VARCHAR" />
+		<result column="book_state" property="book_state" jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap type="jessie.booksmanage.pojo.Book" id="Max_BookNum_Map">
+		<result column="book_num" property="book_num" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		book_id,book_num,book_name,book_author,book_press,book_summary,book_state
+	</sql>
+	<select id="selectBookById" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from bookitem
+		where
+		book_id=#{book_id,jdbcType=INTEGER}
+	</select>
+	<select id="selectBookByNum" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from bookitem
+		where
+		book_num=#{book_num,jdbcType=VARCHAR}
+	</select>
+	<select id="selectAllBooks" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from bookitem
+		Limit #{startNum,jdbcType=INTEGER},#{steps,jdbcType=INTEGER}
+	</select>
+	<select id="selectBookAmounts" resultType="java.lang.Integer">
+		select count(*)
+		from bookitem
+	</select>
+	<select id="selectMaxBookNum" resultType="java.lang.String">
+		select Max(`book_num`)
+		from bookitem
+	</select>
+	<select id="selectBookByName" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from bookitem
+		where book_name like (#{bookName,jdbcType=VARCHAR})
+		limit #{startNum,jdbcType=INTEGER},#{steps,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteBook" parameterType="java.lang.String">
+		delete from bookitem
+		where book_num=#{book_num,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insertBook" parameterType="jessie.booksmanage.pojo.Book">
+		insert into bookitem(book_num,book_name,book_author,book_press,book_summary)
+		values
+		(#{book_num,jdbcType=VARCHAR},#{book_name,jdbcType=VARCHAR},#{book_author,jdbcType=VARCHAR},
+		#{book_press,jdbcType=VARCHAR},#{book_summary,jdbcType=VARCHAR})
+	</insert>
+	<update id="updateBook" parameterType="jessie.booksmanage.pojo.Book">
+		update bookitem
+		set
+		book_num=#{book_num,jdbcType=VARCHAR},book_name=#{book_name,jdbcType=VARCHAR},
+		book_author=#{book_author,jdbcType=VARCHAR},book_press=#{book_press,jdbcType=VARCHAR},book_summary=#{book_summary,jdbcType=VARCHAR}
+		where book_id=#{book_id,jdbcType=INTEGER}
+	</update>
+	<update id="updateBookState" parameterType="jessie.booksmanage.pojo.Book">
+		update bookitem
+		set book_state=#{book_state,jdbcType=INTEGER}
+		where book_num=#{book_num,jdbcType=INTEGER}
+	</update>
+</mapper>

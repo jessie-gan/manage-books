@@ -1,0 +1,145 @@
+/*header*/
+@charset "utf-8";
+*{
+	padding:0px;
+	margin:0px;
+	font-family: "΢���ź�";
+}
+body{
+	background-color: #F8F8F8;
+	
+}
+.head1{
+	width: 100%;
+	height: 60px;
+	background: #00688B;
+}
+.header1{
+	width: 90%;
+	height: 60px;
+	margin: 0 auto;
+}
+.title_font{
+	margin: 0px;
+	color: #FFF;
+	font-size: 28px;
+	line-height: 60px;
+	font-family: "微软雅黑";
+}
+/*person*/
+.sz_selsct{
+	width: 80px;
+}
+.person{
+	width: 100%;
+	height: 40px;
+}
+.right{
+	position: relative;
+	float: left;
+	font-family: "微软雅黑";
+	margin-top: 16px;
+}
+.float{
+	position: relative;
+	float: right;
+	font-family: "微软雅黑";
+	font-style: oblique;
+	margin-top: 10px;
+}
+.person_div{
+	width: 96%;
+	margin: 0 auto;
+	height: 48px;
+	border-bottom: 1px solid #BEBEBE;
+}
+.imgmail{
+	width: 30px;
+	padding-top: 6px;
+}
+.sz_mailspan{
+	padding-right: 6px;
+	padding-left: 6px;
+	color: #00688B;
+}
+.imgperson{
+	width: 24px;
+	height: 20px;
+}
+.guide{
+	color: red;
+}
+/*right*/
+.rightsidebar{
+	margin-top: 24px;
+	width: 82%;
+	min-width: 500px;
+	border: 1px solid #BEBEBE;;
+	background: #F5F5DC;
+	float: left;
+	
+}
+.right_div{
+	width: 100%;
+	min-width: 500px;	
+}
+.addbook{
+	width: 400px;
+	padding-left: 30px;
+	min-width: 500px;
+}
+.news_tail{
+	margin-top: 20px;
+	list-style: none;
+	width: 400px;
+}
+.news_tail li{
+	margin-bottom: 18px;
+}
+.form_input{
+	width: 240px;	
+}
+.label_float{
+	float: left;
+	margin-top: 8px;
+	margin-right: 20px;
+	color: #696969;
+	font-family: "微软雅黑";
+	font-size: 15px;
+}
+
+.sz_spanbtnli{
+	margin-top: 28px;
+}
+.sz_spanbtn1{
+	margin-right: 20px;
+	color: #FFF;
+	background: #00688B;
+	margin-left: 100px;
+}
+.sz_btnadd{
+	color: #FFF;
+}
+.booktext{
+	padding: 6px 12px;
+	font-size: 14px;
+	border-radius: 5px;
+	font-family: "微软雅黑";
+	width: 400px;
+	margin-left: 150px;
+}
+.sz_imgput{
+	padding-top: 6px;
+}
+/*bookdatalist*/
+.lendlist{
+	margin-right: 30px;
+}
+.lendhead{
+	font-size: 14px;
+	text-align: center;
+}
+.nowlend{
+	margin-top: 10px;
+	margin-left: 30px;
+}

@@ -1,0 +1,56 @@
+@charset "utf-8";
+*{
+	font-family: "微软雅黑";
+}
+.admin_detail{
+	width: 100%;
+	margin-top: 30px;
+}
+.admin_detaildiv{
+	width: 96%;
+	margin: 0 auto;
+	min-width: 500px;
+}
+.admin-div{
+	width: 80%;
+	min-width: 500px;
+	background: #F5F5DC;
+	border: 1px solid #BEBEBE;
+}
+.admin-divleft{
+	margin: 40px;
+	width: 128px;
+	position: absolute;
+	
+}
+.admin-divright{
+	width: 500px;
+	margin-left: 220px;
+}
+li{
+	list-style: none;
+	margin-top: 20px;
+}
+.inputtxt{
+	width: 240px;
+	display: inline;
+	margin-left: 14px;
+}
+.spanli{
+	position: relative;
+	float: left;
+}
+.inputtxterea{
+	width: 340px;
+	margin-left: 50px;
+	height: 300px;
+}
+.admin-sava-btn{
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+.lendbtn{
+	margin-left: 150px;
+	background: #00688B;
+	color: #FFF;
+}

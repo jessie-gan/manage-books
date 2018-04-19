@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BugCollection version="2.0.1" sequence="0" timestamp="1465051695078" analysisTimestamp="1465051695232" release="">
+  <Project projectName="">
+    <Jar>C:\Users\Administrator\Desktop\ManageBooks\srcbin</Jar>
+    <AuxClasspathEntry>C:\Users\Administrator\Desktop\ManageBooks\WebContent\WEB-INF\lib\findbugs-2.0.1\lib\findbugs-ant.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\Administrator\Desktop\ManageBooks\WebContent\WEB-INF\lib\findbugs-2.0.1\lib\Regex.jar</AuxClasspathEntry>
+    <SrcDir>C:\Users\Administrator\Desktop\ManageBooks\${src.home}</SrcDir>
+  </Project>
+  <Errors errors="4" missingClasses="20">
+    <Error>
+      <ErrorMessage>Cannot open codebase filesystem:C:\Users\Administrator\Desktop\ManageBooks\WebContent\WEB-INF\lib\findbugs-2.0.1\lib\Regex.jar</ErrorMessage>
+      <Exception>java.io.FileNotFoundException: File C:\Users\Administrator\Desktop\ManageBooks\WebContent\WEB-INF\lib\findbugs-2.0.1\lib\Regex.jar doesn&apos;t exist</Exception>
+      <StackTrace>edu.umd.cs.findbugs.classfile.impl.ClassFactory.createFilesystemCodeBase(ClassFactory.java:107)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.classfile.impl.FilesystemCodeBaseLocator.openCodeBase(FilesystemCodeBaseLocator.java:75)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.classfile.impl.ClassPathBuilder.processWorkList(ClassPathBuilder.java:596)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.classfile.impl.ClassPathBuilder.build(ClassPathBuilder.java:220)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.FindBugs2.buildClassPath(FindBugs2.java:780)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.FindBugs2.execute(FindBugs2.java:218)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.FindBugs.runMain(FindBugs.java:391)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.FindBugs2.main(FindBugs2.java:1300)</StackTrace>
+    </Error>
+    <Error>
+      <ErrorMessage>Unable to get XClass for java/lang/StringBuilder</ErrorMessage>
+      <Exception>java.lang.ArrayIndexOutOfBoundsException: 19567</Exception>
+      <StackTrace>org.objectweb.asm.ClassReader.accept(Unknown Source)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.asm.FBClassReader.accept(FBClassReader.java:44)</StackTrace>
+      <StackTrace>org.objectweb.asm.ClassReader.accept(Unknown Source)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.classfile.engine.ClassParserUsingASM.parse(ClassParserUsingASM.java:110)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.classfile.engine.ClassParserUsingASM.parse(ClassParserUsingASM.java:554)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine.analyze(ClassInfoAnalysisEngine.java:76)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine.analyze(ClassInfoAnalysisEngine.java:38)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.classfile.impl.AnalysisCache.getClassAnalysis(AnalysisCache.java:266)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.ba.XFactory.getXClass(XFactory.java:652)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.ba.ch.Subtypes2.addInheritanceEdge(Subtypes2.java:1227)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.ba.ch.Subtypes2.addSupertypeEdges(Subtypes2.java:1200)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.ba.ch.Subtypes2.addClassAndGetClassVertex(Subtypes2.java:275)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.ba.ch.Subtypes2.addClass(Subtypes2.java:244)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.ba.AnalysisCacheToAnalysisContextAdapter.setAppClassList(AnalysisCacheToAnalysisContextAdapter.java:400)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.FindBugs2.setAppClassList(FindBugs2.java:982)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.FindBugs2.execute(FindBugs2.java:225)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.FindBugs.runMain(FindBugs.java:391)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.FindBugs2.main(FindBugs2.java:1300)</StackTrace>
+    </Error>
+    <Error>
+      <ErrorMessage>Unable to get XClass for java/lang/String</ErrorMessage>
+      <Exception>java.lang.ArrayIndexOutOfBoundsException: 19567</Exception>
+      <StackTrace>org.objectweb.asm.ClassReader.accept(Unknown Source)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.asm.FBClassReader.accept(FBClassReader.java:44)</StackTrace>
+      <StackTrace>org.objectweb.asm.ClassReader.accept(Unknown Source)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.classfile.engine.ClassParserUsingASM.parse(ClassParserUsingASM.java:110)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.classfile.engine.ClassParserUsingASM.parse(ClassParserUsingASM.java:554)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine.analyze(ClassInfoAnalysisEngine.java:76)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine.analyze(ClassInfoAnalysisEngine.java:38)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.classfile.impl.AnalysisCache.getClassAnalysis(AnalysisCache.java:266)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.ba.XFactory.getXClass(XFactory.java:652)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.ba.ch.Subtypes2.addInheritanceEdge(Subtypes2.java:1227)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.ba.ch.Subtypes2.addSupertypeEdges(Subtypes2.java:1200)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.ba.ch.Subtypes2.addClassAndGetClassVertex(Subtypes2.java:275)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.ba.ch.Subtypes2.addClass(Subtypes2.java:244)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.ba.AnalysisCacheToAnalysisContextAdapter.setAppClassList(AnalysisCacheToAnalysisContextAdapter.java:400)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.FindBugs2.setAppClassList(FindBugs2.java:982)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.FindBugs2.execute(FindBugs2.java:225)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.FindBugs.runMain(FindBugs.java:391)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.FindBugs2.main(FindBugs2.java:1300)</StackTrace>
+    </Error>
+    <Error>
+      <ErrorMessage>Unable to get XClass for java/lang/Class</ErrorMessage>
+      <Exception>java.lang.ArrayIndexOutOfBoundsException: 51966</Exception>
+      <StackTrace>org.objectweb.asm.ClassReader.readUTF8(Unknown Source)</StackTrace>
+      <StackTrace>org.objectweb.asm.ClassReader.readClass(Unknown Source)</StackTrace>
+      <StackTrace>org.objectweb.asm.ClassReader.accept(Unknown Source)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.asm.FBClassReader.accept(FBClassReader.java:44)</StackTrace>
+      <StackTrace>org.objectweb.asm.ClassReader.accept(Unknown Source)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.classfile.engine.ClassParserUsingASM.parse(ClassParserUsingASM.java:110)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.classfile.engine.ClassParserUsingASM.parse(ClassParserUsingASM.java:554)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine.analyze(ClassInfoAnalysisEngine.java:76)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine.analyze(ClassInfoAnalysisEngine.java:38)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.classfile.impl.AnalysisCache.getClassAnalysis(AnalysisCache.java:266)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.ba.XFactory.getXClass(XFactory.java:652)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.ba.ch.Subtypes2.addInheritanceEdge(Subtypes2.java:1227)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.ba.ch.Subtypes2.addSupertypeEdges(Subtypes2.java:1200)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.ba.ch.Subtypes2.addClassAndGetClassVertex(Subtypes2.java:275)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.ba.ch.Subtypes2.addClass(Subtypes2.java:244)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.ba.AnalysisCacheToAnalysisContextAdapter.setAppClassList(AnalysisCacheToAnalysisContextAdapter.java:400)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.FindBugs2.setAppClassList(FindBugs2.java:982)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.FindBugs2.execute(FindBugs2.java:225)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.FindBugs.runMain(FindBugs.java:391)</StackTrace>
+      <StackTrace>edu.umd.cs.findbugs.FindBugs2.main(FindBugs2.java:1300)</StackTrace>
+    </Error>
+    <MissingClass>com.google.gson.Gson</MissingClass>
+    <MissingClass>com.opensymphony.xwork2.ActionSupport</MissingClass>
+    <MissingClass>javax.servlet.ServletContext</MissingClass>
+    <MissingClass>javax.servlet.http.HttpServletRequest</MissingClass>
+    <MissingClass>javax.servlet.http.HttpServletResponse</MissingClass>
+    <MissingClass>javax.servlet.http.HttpSession</MissingClass>
+    <MissingClass>jxl.Cell</MissingClass>
+    <MissingClass>jxl.Sheet</MissingClass>
+    <MissingClass>jxl.Workbook</MissingClass>
+    <MissingClass>org.apache.commons.io.FileUtils</MissingClass>
+    <MissingClass>org.apache.struts2.ServletActionContext</MissingClass>
+    <MissingClass>org.apache.struts2.convention.annotation.Action</MissingClass>
+    <MissingClass>org.apache.struts2.convention.annotation.Namespace</MissingClass>
+    <MissingClass>org.apache.struts2.convention.annotation.ParentPackage</MissingClass>
+    <MissingClass>org.apache.struts2.convention.annotation.Result</MissingClass>
+    <MissingClass>org.springframework.beans.factory.annotation.Autowired</MissingClass>
+    <MissingClass>org.springframework.context.annotation.Scope</MissingClass>
+    <MissingClass>org.springframework.stereotype.Controller</MissingClass>
+    <MissingClass>org.springframework.stereotype.Repository</MissingClass>
+    <MissingClass>org.springframework.stereotype.Service</MissingClass>
+  </Errors>
+  <FindBugsSummary timestamp="Sat, 4 Jun 2016 22:48:15 +0800" total_classes="0" referenced_classes="79" total_bugs="0" total_size="0" num_packages="0" vm_version="25.45-b02" cpu_seconds="3.09" clock_seconds="1.56" peak_mbytes="83.43" alloc_mbytes="876.50" gc_seconds="0.02">
+    <FindBugsProfile>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine" totalMilliseconds="183" invocations="163" avgMicrosecondsPerInvocation="1128" maxMicrosecondsPerInvocation="35003" standardDeviationMircosecondsPerInvocation="3279"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.impl.ZipCodeBaseFactory" totalMilliseconds="113" invocations="21" avgMicrosecondsPerInvocation="5388" maxMicrosecondsPerInvocation="108994" standardDeviationMircosecondsPerInvocation="23167"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassDataAnalysisEngine" totalMilliseconds="107" invocations="165" avgMicrosecondsPerInvocation="650" maxMicrosecondsPerInvocation="17845" standardDeviationMircosecondsPerInvocation="2086"/>
+    </FindBugsProfile>
+  </FindBugsSummary>
+  <ClassFeatures></ClassFeatures>
+  <History></History>
+</BugCollection>

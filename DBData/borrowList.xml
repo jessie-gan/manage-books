@@ -1,0 +1,237 @@
+<?xml version='1.0' encoding='GBK'?>
+<dataset>
+  <table name="borrowlist">
+    <column>borrow_id</column>
+    <column>borrow_bookNum</column>
+    <column>borrow_stuNum</column>
+    <column>borrow_time</column>
+    <column>shouldReturn_time</column>
+    <column>return_time</column>
+    <column>borrow_state</column>
+    <row>
+      <value>8</value>
+      <value>MVST_0011</value>
+      <value>20121113</value>
+      <value><![CDATA[2016-05-15 12:27:04.0]]></value>
+      <value><![CDATA[2016-05-27 10:01:30.0]]></value>
+      <value><![CDATA[2016-05-15 12:27:04.0]]></value>
+      <value>1</value>
+    </row>
+    <row>
+      <value>9</value>
+      <value>MVST_0018</value>
+      <value>20121116</value>
+      <value><![CDATA[2016-05-15 12:30:30.0]]></value>
+      <value><![CDATA[2016-05-27 10:01:30.0]]></value>
+      <value><![CDATA[2016-05-15 12:30:30.0]]></value>
+      <value>1</value>
+    </row>
+    <row>
+      <value>10</value>
+      <value>MVST_0021</value>
+      <value>20121115</value>
+      <value><![CDATA[2016-05-15 10:59:32.0]]></value>
+      <value><![CDATA[2016-05-27 10:01:30.0]]></value>
+      <value><![CDATA[2016-05-15 10:59:32.0]]></value>
+      <value>1</value>
+    </row>
+    <row>
+      <value>11</value>
+      <value>MVST_0037</value>
+      <value>20121116</value>
+      <value><![CDATA[2016-05-17 14:41:44.0]]></value>
+      <value><![CDATA[2016-05-27 10:01:30.0]]></value>
+      <value><![CDATA[2016-05-17 14:41:44.0]]></value>
+      <value>1</value>
+    </row>
+    <row>
+      <value>13</value>
+      <value>MVST_0029</value>
+      <value>20121111</value>
+      <value><![CDATA[2016-05-16 14:30:19.0]]></value>
+      <value><![CDATA[2016-05-27 10:01:30.0]]></value>
+      <null/>
+      <value>0</value>
+    </row>
+    <row>
+      <value>14</value>
+      <value>MVST_0004</value>
+      <value>20121111</value>
+      <value><![CDATA[2016-05-16 14:30:23.0]]></value>
+      <value><![CDATA[2016-05-27 10:01:30.0]]></value>
+      <null/>
+      <value>0</value>
+    </row>
+    <row>
+      <value>17</value>
+      <value>MVST_0005</value>
+      <value>20121232</value>
+      <value><![CDATA[2016-05-16 14:30:24.0]]></value>
+      <value><![CDATA[2016-05-27 10:01:30.0]]></value>
+      <null/>
+      <value>0</value>
+    </row>
+    <row>
+      <value>18</value>
+      <value>MVST_0012</value>
+      <value>20121232</value>
+      <value><![CDATA[2016-05-15 10:59:32.0]]></value>
+      <value><![CDATA[2016-05-27 10:01:30.0]]></value>
+      <value><![CDATA[2016-05-15 10:59:32.0]]></value>
+      <value>1</value>
+    </row>
+    <row>
+      <value>20</value>
+      <value>MVST_0007</value>
+      <value>20121232</value>
+      <value><![CDATA[2016-05-16 09:19:13.0]]></value>
+      <value><![CDATA[2016-05-27 10:01:30.0]]></value>
+      <value><![CDATA[2016-05-16 09:19:13.0]]></value>
+      <value>1</value>
+    </row>
+    <row>
+      <value>21</value>
+      <value>MVST_0006</value>
+      <value>20121278</value>
+      <value><![CDATA[2016-05-16 09:19:33.0]]></value>
+      <value><![CDATA[2016-04-27 10:12:21.0]]></value>
+      <value><![CDATA[2016-05-16 09:19:33.0]]></value>
+      <value>1</value>
+    </row>
+    <row>
+      <value>25</value>
+      <value>MVST_0009</value>
+      <value>20121116</value>
+      <value><![CDATA[2016-05-18 15:30:50.0]]></value>
+      <value><![CDATA[2016-05-17 08:54:00.0]]></value>
+      <value><![CDATA[2016-05-18 15:30:50.0]]></value>
+      <value>1</value>
+    </row>
+    <row>
+      <value>26</value>
+      <value>MVST_0008</value>
+      <value>20121120</value>
+      <value><![CDATA[2016-05-16 14:01:15.0]]></value>
+      <value><![CDATA[2016-05-18 09:14:57.0]]></value>
+      <value><![CDATA[2016-05-16 14:01:15.0]]></value>
+      <value>1</value>
+    </row>
+    <row>
+      <value>27</value>
+      <value>MVST_0013</value>
+      <value>20121116</value>
+      <value><![CDATA[2016-05-16 08:54:35.0]]></value>
+      <value><![CDATA[2016-05-17 08:54:12.0]]></value>
+      <null/>
+      <value>0</value>
+    </row>
+    <row>
+      <value>29</value>
+      <value>MVST_0014</value>
+      <value>20121116</value>
+      <value><![CDATA[2016-05-18 15:52:30.0]]></value>
+      <value><![CDATA[2016-05-17 21:22:53.0]]></value>
+      <null/>
+      <value>0</value>
+    </row>
+    <row>
+      <value>32</value>
+      <value>MVST_0015</value>
+      <value>20121232</value>
+      <value><![CDATA[2016-05-16 14:30:31.0]]></value>
+      <value><![CDATA[2016-06-15 09:07:28.0]]></value>
+      <null/>
+      <value>0</value>
+    </row>
+    <row>
+      <value>33</value>
+      <value>MVST_0017</value>
+      <value>20121232</value>
+      <value><![CDATA[2016-05-16 14:30:33.0]]></value>
+      <value><![CDATA[2016-06-15 09:10:30.0]]></value>
+      <null/>
+      <value>0</value>
+    </row>
+    <row>
+      <value>35</value>
+      <value>MVST_0006</value>
+      <value>20121232</value>
+      <value><![CDATA[2016-05-16 14:30:37.0]]></value>
+      <value><![CDATA[2016-06-15 13:41:31.0]]></value>
+      <null/>
+      <value>0</value>
+    </row>
+    <row>
+      <value>37</value>
+      <value>MVST_0007</value>
+      <value>20121232</value>
+      <value><![CDATA[2016-05-16 14:30:38.0]]></value>
+      <value><![CDATA[2016-06-15 13:47:11.0]]></value>
+      <null/>
+      <value>0</value>
+    </row>
+    <row>
+      <value>38</value>
+      <value>MVST_0034</value>
+      <value>20121232</value>
+      <value><![CDATA[2016-05-16 14:30:39.0]]></value>
+      <value><![CDATA[2016-06-15 13:47:18.0]]></value>
+      <null/>
+      <value>0</value>
+    </row>
+    <row>
+      <value>39</value>
+      <value>MVST_0023</value>
+      <value>20121232</value>
+      <value><![CDATA[2016-05-16 14:30:40.0]]></value>
+      <value><![CDATA[2016-06-15 13:47:39.0]]></value>
+      <null/>
+      <value>0</value>
+    </row>
+    <row>
+      <value>40</value>
+      <value>MVST_0019</value>
+      <value>20121116</value>
+      <value><![CDATA[2016-05-18 15:54:53.0]]></value>
+      <value><![CDATA[2016-05-17 14:20:37.0]]></value>
+      <value><![CDATA[2016-05-18 15:54:53.0]]></value>
+      <value>1</value>
+    </row>
+    <row>
+      <value>41</value>
+      <value>MVST_0020</value>
+      <value>20121232</value>
+      <value><![CDATA[2016-05-16 14:45:29.0]]></value>
+      <value><![CDATA[2016-06-15 14:33:35.0]]></value>
+      <null/>
+      <value>0</value>
+    </row>
+    <row>
+      <value>42</value>
+      <value>MVST_0008</value>
+      <value>20121116</value>
+      <value><![CDATA[2016-05-16 14:45:18.0]]></value>
+      <value><![CDATA[2016-06-15 14:39:01.0]]></value>
+      <null/>
+      <value>0</value>
+    </row>
+    <row>
+      <value>43</value>
+      <value>MVST_0011</value>
+      <value>20121116</value>
+      <value><![CDATA[2016-05-16 14:52:50.0]]></value>
+      <value><![CDATA[2016-06-15 14:41:50.0]]></value>
+      <null/>
+      <value>0</value>
+    </row>
+    <row>
+      <value>44</value>
+      <value>MVST_0012</value>
+      <value>20121116</value>
+      <value><![CDATA[2016-05-17 11:22:06.0]]></value>
+      <value><![CDATA[2016-06-16 11:22:05.0]]></value>
+      <null/>
+      <value>0</value>
+    </row>
+  </table>
+</dataset>

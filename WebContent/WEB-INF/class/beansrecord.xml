@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='GBK'?>
+<dataset>
+  <table name="beansrecord">
+    <column>id</column>
+    <column>stuNum</column>
+    <column>opreateTime</column>
+    <column>opreate</column>
+    <column>readBeans</column>
+    <row>
+      <value>2</value>
+      <value>20121232</value>
+      <value><![CDATA[2016-04-27 10:58:28.0]]></value>
+      <value>0</value>
+      <value>6</value>
+    </row>
+    <row>
+      <value>3</value>
+      <value>20121116</value>
+      <value><![CDATA[2016-05-15 13:49:35.0]]></value>
+      <value>0</value>
+      <value>5</value>
+    </row>
+    <row>
+      <value>4</value>
+      <value>20121116</value>
+      <value><![CDATA[2016-05-15 21:22:54.0]]></value>
+      <value>0</value>
+      <value>10</value>
+    </row>
+    <row>
+      <value>5</value>
+      <value>20121232</value>
+      <value><![CDATA[2016-05-16 09:07:28.0]]></value>
+      <value>0</value>
+      <value>5</value>
+    </row>
+    <row>
+      <value>6</value>
+      <value>20121232</value>
+      <value><![CDATA[2016-05-16 09:10:31.0]]></value>
+      <value>0</value>
+      <value>10</value>
+    </row>
+    <row>
+      <value>7</value>
+      <value>20121278</value>
+      <value><![CDATA[2016-05-16 09:19:33.0]]></value>
+      <value>2</value>
+      <value>0</value>
+    </row>
+    <row>
+      <value>8</value>
+      <value>20134525</value>
+      <value><![CDATA[2016-05-16 09:37:00.0]]></value>
+      <value>0</value>
+      <value>0</value>
+    </row>
+    <row>
+      <value>9</value>
+      <value>20121232</value>
+      <value><![CDATA[2016-05-16 13:41:31.0]]></value>
+      <value>0</value>
+      <value>15</value>
+    </row>
+    <row>
+      <value>10</value>
+      <value>20121232</value>
+      <value><![CDATA[2016-05-16 13:44:33.0]]></value>
+      <value>0</value>
+      <value>20</value>
+    </row>
+    <row>
+      <value>11</value>
+      <value>20121232</value>
+      <value><![CDATA[2016-05-16 13:47:12.0]]></value>
+      <value>0</value>
+      <value>25</value>
+    </row>
+    <row>
+      <value>12</value>
+      <value>20121232</value>
+      <value><![CDATA[2016-05-16 13:47:18.0]]></value>
+      <value>0</value>
+      <value>30</value>
+    </row>
+    <row>
+      <value>13</value>
+      <value>20121232</value>
+      <value><![CDATA[2016-05-16 13:47:40.0]]></value>
+      <value>0</value>
+      <value>35</value>
+    </row>
+    <row>
+      <value>14</value>
+      <value>20121116</value>
+      <value><![CDATA[2016-05-16 14:21:24.0]]></value>
+      <value>0</value>
+      <value>15</value>
+    </row>
+    <row>
+      <value>15</value>
+      <value>20121116</value>
+      <value><![CDATA[2016-05-17 11:22:06.0]]></value>
+      <value>0</value>
+      <value>20</value>
+    </row>
+    <row>
+      <value>17</value>
+      <value>20121116</value>
+      <value><![CDATA[2016-05-18 15:56:52.0]]></value>
+      <value>2</value>
+      <value>15</value>
+    </row>
+  </table>
+</dataset>

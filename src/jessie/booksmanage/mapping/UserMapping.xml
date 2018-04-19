@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jessie.booksmanage.dao.UserDAO">
+	<resultMap id="BaseResultMap" type="jessie.booksmanage.pojo.User">
+		<id column="user_id" property="user_id" jdbcType="INTEGER" />
+		<result column="student_num" property="student_num" jdbcType="VARCHAR" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="register_time" property="register_time"
+			jdbcType="TIME" />
+		<result column="details_id" property="details_id" jdbcType="INTEGER" />
+		<result column="real_name" property="real_name" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="tel" property="tel" jdbcType="VARCHAR" />
+		<result column="gradeClass" property="gradeClass" jdbcType="VARCHAR" />
+		<result column="major" property="major" jdbcType="VARCHAR" />
+		<result column="readBeans" property="readBean" jdbcType="INTEGER"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		user_id, student_num,username,password,register_time
+	</sql>
+	<sql id="Details_Column_List">
+		details_id,real_name,sex,email,tel,gradeClass,major,readBeans
+	</sql>
+	<select id="selectAllUsers" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List"/>,
+		<include refid="Details_Column_List"/>
+		from user,user_details
+		where student_num=studentNum
+		ORDER BY student_num DESC
+		limit #{startNum,jdbcType=INTEGER},#{steps,jdbcType=INTEGER}
+	</select>
+	<select id="selectAllUserAmounts" resultType="java.lang.Integer">
+		select COUNT(*)
+		from user
+	</select>
+	<select id="selectByStudentNum" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />,
+		<include refid="Details_Column_List"/>
+		from user,user_details
+		where student_num = #{student_num,jdbcType=VARCHAR} AND studentNum=
+		#{student_num,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteUser" parameterType="java.lang.String">
+		delete
+		from user
+		where student_num=#{student_num,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insertUser" parameterType="jessie.booksmanage.pojo.User">
+		insert into user(student_num,username,password)
+		values
+		(#{student_num,jdbcType=VARCHAR},#{username,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR});
+	</insert>
+	<insert id="insertUserDetails" parameterType="java.lang.String">
+		insert into user_details(studentNum)
+		values(#{stuNum,jdbcType=VARCHAR})
+	</insert>
+	<update id="updateUser" parameterType="jessie.booksmanage.pojo.User">
+		update user
+		set 
+		password=#{password,jdbcType=VARCHAR}
+		where
+		student_num=#{student_num,jdbcType=VARCHAR}
+	</update>
+	<update id="updateUserDetails" parameterType="jessie.booksmanage.pojo.User">
+		update user_details,user
+		set
+		username=#{username,jdbcType=VARCHAR},
+		real_name=#{real_name,jdbcType=VARCHAR},
+		sex=#{sex,jdbcType=VARCHAR},
+		email=#{email,jdbcType=VARCHAR},
+		tel=#{tel,jdbcType=VARCHAR},
+		gradeClass=#{gradeClass,jdbcType=VARCHAR},
+		major=#{major,jdbcType=VARCHAR}
+		where studentNum=#{student_num,jdbcType=VARCHAR} AND 
+		student_num=#{student_num,jdbcType=VARCHAR}
+	</update>
+	<update id="updateUserReanBean" parameterType="jessie.booksmanage.pojo.User">
+		update user_details
+		set readBeans = #{readBean,jdbcType=INTEGER}
+		where studentNum = #{student_num,jdbcType=VARCHAR}
+	</update>
+</mapper>

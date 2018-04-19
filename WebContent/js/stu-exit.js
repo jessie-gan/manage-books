@@ -1,0 +1,21 @@
+$(function(){
+	$("#exit").css("cursor","pointer");
+	$("#exit").click(function(){
+		if(confirm("确定要注销此账户？")){
+			$.ajax({
+				type:"post",
+				content:"application/x-www-form-urlencoded;charset=UTF-8",
+				url:"../user/logout",
+				async:false, 
+				dataType:'json',
+				data:{},
+				success:function(result){
+					alert(result.msg);
+					window.location.href="login.html";
+				}
+			});
+		} 
+		else
+			return false;
+	}); 
+});

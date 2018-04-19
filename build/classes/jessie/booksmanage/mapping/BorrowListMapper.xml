@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jessie.booksmanage.dao.BorrowListDAO">
+	<resultMap id="BaseResultMap" type="jessie.booksmanage.pojo.BorrowRecord">
+		<id column="borrow_id" property="borrow_id" jdbcType="INTEGER" />
+		<result column="borrow_bookNum" property="borrow_bookNum"
+			jdbcType="VARCHAR" />
+		<result column="book_name" property="borrow_bookName"
+			jdbcType="VARCHAR" />
+		<result column="borrow_stuNum" property="borrow_stuNum"
+			jdbcType="VARCHAR" />
+		<result column="real_name" property="borrow_stuName"
+			jdbcType="VARCHAR" />
+		<result column="borrow_time" property="borrow_time" jdbcType="VARCHAR" />
+		<result column="shouldReturn_time" property="shouldReturn_time" jdbcType="VARCHAR"/>
+		<result column="borrow_state" property="borrow_state" jdbcType="INTEGER"/>
+	</resultMap>
+
+	<select id="selectAllRecord" resultMap="BaseResultMap">
+		select borrow_bookNum,book_name,borrow_stuNum,real_name,borrow_time
+		from borrowlist,user_details,bookitem
+		where book_num=borrow_bookNum AND
+		studentNum=borrow_stuNum AND borrow_state=1
+	</select>
+	<select id="selectCurrentRecords" resultMap="BaseResultMap">
+		select borrow_bookNum,book_name,borrow_stuNum,real_name,borrow_time
+		from borrowlist,user_details,bookitem
+		where book_num=borrow_bookNum AND
+		studentNum=borrow_stuNum AND borrow_state=0
+	</select>
+	<select id="selectRecordAmount" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM
+		borrowlist
+	</select>
+	<select id="selecOnesRecordAmount" resultType="java.lang.Integer"
+		parameterType="java.lang.String">
+		SELECT COUNT(*)
+		FROM borrowlist
+		where
+		borrow_stuNum=#{borrow_stuNum,jdbcType=VARCHAR} AND borrow_state=0
+	</select>
+	<select id="selectOnesCurrentRecord" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		SELECT
+		borrow_bookNum,book_name,borrow_stuNum,borrow_time
+		FROM
+		bookitem,borrowlist
+		where book_num=borrow_bookNum AND
+		borrow_stuNum=#{stuNum,jdbcType=VARCHAR} AND borrow_state=0
+	</select>
+	<select id="selectOnesHistoryRecord" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		SELECT
+		borrow_bookNum,book_name,borrow_stuNum,borrow_time
+		FROM
+		bookitem,borrowlist
+		where book_num=borrow_bookNum AND
+		borrow_stuNum=#{stuNum,jdbcType=VARCHAR} AND borrow_state=1
+	</select>
+	<select id="selectOneRecordById" resultMap="BaseResultMap" 
+	parameterType="java.lang.Integer">
+		SELECT *
+		from
+		borrowlist
+		where borrow_id=#{id,jdbcType=INTEGER}
+		
+	</select>
+	<insert id="insertRecord" parameterType="jessie.booksmanage.pojo.BorrowRecord">
+		insert into
+		borrowlist(borrow_bookNum,borrow_stuNum)
+		values(#{borrow_bookNum,jdbcType=VARCHAR},
+		#{borrow_stuNum,jdbcType=VARCHAR})
+	</insert>
+	<update id="updateShouldReturnTime" parameterType="java.lang.Integer">
+		UPDATE borrowlist
+		SET shouldReturn_time = DATE_ADD(borrow_time,INTERVAL 30 DAY)
+		where borrow_id=#{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateBorrowState" parameterType="java.lang.Integer">
+		UPDATE borrowlist
+		SET borrow_state = 1;
+		where borrow_id=#{id,jdbcType=INTEGER}
+	</update>
+	<insert id="deleteRecord" parameterType="java.lang.Integer">
+		delete from borrowlist
+		where borrow_bookNum=#{bookNum,jdbcType=VARCHAR}
+	</insert>
+</mapper>

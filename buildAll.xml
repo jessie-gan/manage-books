@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ManageBooks" default="rebuild" 
+	xmlns:jacoco="antlib:org.jacoco.ant" 
+	xmlns:ivy="antlib:org.apache.ivy.ant" 
+ 	basedir=".">
+	<description>
+       图书馆管理系统ant配置
+	</description>
+	<!--所有目录信息-->
+	<!-- 库文件地址-->
+	<property name="lib.dir" location="${basedir}/WebContent/WEB-INF/lib"/>
+	<!-- 源代码和测试代码地址-->
+	<property name="src.dir" location="${basedir}/src"/>
+	<property name="test.dir" location="${basedir}/testsrc"/>
+	<property name="resource.dir" value="${basedir}/resources"/>
+	
+	<!-- 源代码和测试代码class地址-->
+	<property name="srcbin.dir" location="${basedir}/srcbin"/>
+	<property name="testbin.dir" location="${basedir}/testbin"/>
+    <!--规范检测CheckStyle文档地址   -->
+	<property name="CheckReport.dir" location="${basedir}/CheckReport" />
+	<!--Junit报告文档地址   -->
+	<property name="JunitReport.dir" location="${basedir}/JunitReport" />
+	
+	<!--覆盖率报注入编译代码   -->
+	<property name="jacoco.dir" value="${basedir}/jacoco" />	
+	<property name="CoverageReport.dir" location="${basedir}/CoverageReport" />
+	<property name="CoverageReport.file" location="${CoverageReport.dir}/jacoco.exec" /> 
+	 
+    <!--find bug 地址   -->
+    <property name="findbugsReport.dir" value="${basedir}/findbugsReport" />    
+    <property name="findbugs.home" value="${lib.dir}/findbugs-2.0.1" /> 
+	
+	<!--DOC 文档地址   -->
+	<property name="doc.dir" value="${basedir}/doc"/>
+	 
+	
+	   <!-- Import JUnit -->
+	    <path id="classpath.test">
+	       	<fileset dir="${lib.dir}" >
+	    	<include name="**/*.jar"/>
+	    	</fileset>
+	    	 
+	        <pathelement location="${src.dir}" />
+	        <pathelement location="${test.dir}" />
+	        <pathelement location="${testbin.dir}" />
+	        <pathelement location="${srcbin.dir}" />
+	        <path refid="classpath.base" />
+	    	
+	    </path>
+
+	    <!-- Import findbugs Path --> 
+	    <path id="findbugs.path" >
+	               <fileset  dir ="${findbugs.home}">
+	                <include  name ="**/*.jar"/>
+	               </fileset>
+	    </path>
+	
+	<!--=============================================================================-->
+	<!-- Import checkstyle tasks -->
+	<taskdef resource="checkstyletask.properties"
+	    classpath="${lib.dir}/checkstyle-5.5-all.jar"/>
+	
+	<path id="classpath.base" />
+	<!-- Import JaCoCo Ant tasks -->
+	<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
+		<classpath path="${lib.dir}/jacocoant.jar" />
+	</taskdef> 
+	  <!-- Import findbugs Ant tasks -->
+	<taskdef name="findbugs"  
+	        classname="edu.umd.cs.findbugs.anttask.FindBugsTask"  
+	        classpathref ="findbugs.path"/> 
+	 
+	<!-- ivy start -->
+		<target name="resolve" description="retrieve dependencies with ivy">
+			<echo message="Getting dependencies..." />
+			<ivy:retrieve />
+
+			<ivy:cachepath pathid="compile.path" conf="compile" />
+			<ivy:cachepath pathid="runtime.path" conf="runtime" />
+			<ivy:cachepath pathid="test.path" conf="test" />
+
+		</target>
+
+		<!-- install ivy if you don't have ivyide-->
+		<target name="ivy" description="Install ivy">
+			<mkdir dir="${user.home}/.ant/lib" />
+			<get dest="${user.home}/.ant/lib/ivy.jar" src="http://search.maven.org/remotecontent?filepath=org/apache/ivy/ivy/2.4.0-rc1/ivy-2.4.0-rc1.jar" />
+		</target>
+		<!-- ivy end -->
+	  
+	<!-- target:清理原输出文件 -->
+	<target name="clean" description="Remove all files.">
+		<delete dir="${doc.dir}"/>
+		<delete dir="${srcbin.dir}"/>
+		<delete dir="${testbin.dir}"/> 
+		<delete dir="${CheckReport.dir}"/>
+		<delete dir="${JunitReport.dir}"/>
+		<delete dir="${CoverageReport.dir}"/>
+		<delete dir="${findbugsReport.dir}"/>
+	</target>
+
+	<!-- target:建立输出文件夹 -->
+	<target name="init" description="create output folder" depends="clean" >
+		<mkdir dir="${doc.dir}" />
+		<mkdir dir="${srcbin.dir}" />
+		<mkdir dir="${testbin.dir}" /> 
+		<mkdir dir="${CheckReport.dir}"/>
+		<mkdir dir="${JunitReport.dir}"/>
+		<mkdir dir="${CoverageReport.dir}" />
+		<mkdir dir="${findbugsReport.dir}"/>
+	</target>
+
+	<!-- target:建立源代码API文档-->
+	<target name="create_doc">
+		<javadoc destdir="${doc.dir}"  locale="zh_CN"
+		  encoding="UTF-8" docencoding="UTF-8">
+			<packageset dir="${src.dir}">
+			</packageset>
+		</javadoc>
+	</target> 
+	
+	<!-- 生成src class-->
+	<target name="srcCompile" depends="init">
+		<javac srcdir="${src.dir}" 
+			destdir="${srcbin.dir}" 
+			debug="true" 
+			includeantruntime="true">
+			<!--<compilerarg line="-encoding GBK"/>  -->
+			<classpath refid="classpath.test" />
+		</javac>
+	</target>
+
+	<!-- 生成test class-->
+	<target name="testCompile" depends="clean">
+		<javac srcdir="${test.dir}" 
+			destdir="${testbin.dir}" 
+			debug="true" 
+			includeantruntime="true"> 
+			<!--<compilerarg line="-encoding GBK"/>  -->
+			<classpath refid="classpath.test" />
+		</javac>
+	</target>
+
+	<!-- 编译源代码和测试代码-->
+	<target name="all_compile" depends="srcCompile, testCompile">
+	</target>
+	
+
+    <!-- 生成CheckStyle检查报告-->
+    <target name="checkstyle_report" description="Generates a report of code convention violations.">
+
+        <checkstyle config="sun_checks.xml" failureProperty="checkstyle.failure" failOnViolation="false">
+            <formatter type="xml" tofile="${CheckReport.dir}\checkstyle_report.xml" />
+            <fileset dir="src" includes="**/*.java" />
+        </checkstyle>
+        <xslt taskname="checkstyle" in="${CheckReport.dir}\checkstyle_report.xml" out="${CheckReport.dir}\checkstyle_report.html" style="checkstyle-noframes-sorted.xsl" />
+    </target>
+        	 
+	
+	<!--测试-->
+		<target name="JUnit" depends="all_compile">
+			<!--printsummary="yes" ： 在测试的最后一行生成一个单行的概要-->
+			<!--haltonerror="yes" haltonfailure="yes" ：如果失败或产生错误将停止编译-->
+			<!--fork="yes"　：每个测试分别使用一个单独的java虚拟机（JUM）-->
+			<junit printsummary="yes" haltonerror="yes" haltonfailure="yes" fork="yes">
+				 <classpath refid="classpath.test" />
+				<formatter type="plain" usefile="false"/>
+				<formatter type="xml"  usefile="true"/>
+				<!--自动找出要运行的测试-->
+				<batchtest todir="${JunitReport.dir}" haltonfailure="no">
+								<fileset dir="${testbin.dir}">
+									<include name="**/*Test.class" />
+								</fileset>
+					
+							</batchtest>
+				<!--为本次任务添加你刚刚编译的类-->
+				<classpath refid="classpath.test" />
+		 	</junit>
+		</target>  
+	
+	<!-- 生成junit测试报告 -->
+	        <target name="JUnit_report" description="Generates JUnit report" depends="JUnit">
+	            <junitreport todir="${JunitReport.dir}">
+	                <fileset dir="${JunitReport.dir}">
+	                    <include name="*" />
+	                </fileset>
+	                <report format="frames" todir="${JunitReport.dir}" />
+	            </junitreport>
+	        </target>
+	
+    <target name="Jacoco" depends="all_compile">
+	        <!--  Wrap JUnit test execution with the JaCoCo coverage task -->
+	        <jacoco:coverage destfile="${CoverageReport.file}" 
+	            classdumpdir ="${jacoco.dir}"  >
+	            <junit fork="true" forkmode="once">
+	                <classpath refid="classpath.test" /><formatter
+	                    type="brief"
+	                    usefile="false" /> 
+	                <!-- 自动找出要运行的测试 -->
+	                <batchtest
+	                    haltonfailure="no"
+	                    todir="${JunitReport.dir}" >
+
+	                    <fileset dir="${testbin.dir}" >
+	                        <include name="**/*Test.class" />
+	                    </fileset>
+	                </batchtest>
+	            </junit> 
+	        </jacoco:coverage>
+	    </target> 
+	 
+ 
+	<target name="CoverageReport" depends="Jacoco">
+	        <!-- Create coverage report -->
+	        <jacoco:report>
+	            <!-- This task needs the collected execution data and ... -->
+	            <executiondata>
+	                <file file="${CoverageReport.file}" />
+	            </executiondata>
+
+	            <!-- the class files and optional source files ... -->
+	            <structure name="test">
+	                <classfiles>
+	                    <fileset dir="${testbin.dir}" />
+	                    <fileset dir="${srcbin.dir}" />
+	                </classfiles>
+	                <sourcefiles encoding="UTF-8">
+	                    <fileset dir="${src.dir}" />	                	
+	                </sourcefiles>
+	            </structure> 
+	            <!-- to produce reports in different formats. -->
+	            <html destdir="${CoverageReport.dir}" />
+	            <csv destfile="${CoverageReport.dir}/report.csv" />
+	            <xml destfile="${CoverageReport.dir}/report.xml" />
+	        </jacoco:report>
+	    </target>
+	
+	<target name="findbugs" depends="all_compile">
+	        <delete dir="${findbugsReport.dir}"/>
+	        <mkdir dir="${findbugsReport.dir}" />
+	        <findbugs home ="${findbugs.home}"          
+	             output ="xml"  
+	            outputFile ="${findbugsReport.dir}/findbugs.xml">
+	           <class location ="${srcbin.dir}"/>
+	           <!--  以上定义findbugs查找的类路径  -->
+	            <auxClasspath path="${findbugs.home}/lib/findbugs-ant.jar"/>
+	           <auxClasspath>
+	             </auxClasspath>
+	               <auxClasspath path="${findbugs.home}/lib/Regex.jar" />
+	           
+	           <!--  以上定义上述类所依赖的类路径  -->
+	           <sourcePath path ="${src.home}"/>
+	           <!--  以上定义源代码的路径  -->
+	       </findbugs>   
+	    
+	  </target>
+	<!--Default task-->
+	<target name="rebuild" depends="clean, init, all_compile,create_doc,
+		checkstyle_report,JUnit_report, CoverageReport, findbugs"> 
+	</target>
+	<!--
+	<target name="rebuild" depends="clean, init, all_compile, create_doc,
+		checkstyle_report,  JUnit_report, CoverageReport, findbugs"> 
+	-->
+</project>
+
+
+
+

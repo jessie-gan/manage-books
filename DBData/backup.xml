@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='GBK'?>
+<dataset>
+  <table name="admin_user">
+    <column>aduser_id</column>
+    <column>ad_username</column>
+    <column>ad_password</column>
+    <row>
+      <value>1</value>
+      <value>admin</value>
+      <value>admin</value>
+    </row>
+  </table>
+</dataset>

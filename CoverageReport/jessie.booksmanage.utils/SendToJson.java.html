@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SendToJson.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">test</a> &gt; <a href="index.source.html" class="el_package">jessie.booksmanage.utils</a> &gt; <span class="el_source">SendToJson.java</span></div><h1>SendToJson.java</h1><pre class="source lang-java linenums">package jessie.booksmanage.utils;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+
+<span class="nc" id="L10">public class SendToJson {</span>
+	public static void send(HttpServletResponse response, Object obj) {
+<span class="nc" id="L12">		Gson gson = new Gson();</span>
+<span class="nc" id="L13">		String json = null;</span>
+<span class="nc bnc" id="L14" title="All 2 branches missed.">		if (obj instanceof String) {</span>
+<span class="nc" id="L15">			json = (String) obj;</span>
+		} else {
+<span class="nc" id="L17">			json = gson.toJson(obj);</span>
+		}
+<span class="nc" id="L19">		PrintWriter out = null;</span>
+		try {
+<span class="nc" id="L21">			response.setCharacterEncoding(&quot;utf-8&quot;);</span>
+<span class="nc" id="L22">			response.setContentType(&quot;text/html;charset=utf-8&quot;);</span>
+<span class="nc" id="L23">			response.setHeader(&quot;cache-control&quot;, &quot;no-cache&quot;);</span>
+<span class="nc" id="L24">			out = response.getWriter();</span>
+<span class="nc" id="L25">			out.write(json);</span>
+<span class="nc" id="L26">		} catch (IOException e) {</span>
+<span class="nc" id="L27">			e.printStackTrace();</span>
+		} finally {
+<span class="nc" id="L29">			out.flush();</span>
+<span class="nc" id="L30">			out.close();</span>
+<span class="nc" id="L31">		}</span>
+<span class="nc" id="L32">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201604210617</span></div></body></html>

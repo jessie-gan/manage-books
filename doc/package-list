@@ -1,0 +1,6 @@
+jessie.booksmanage.action
+jessie.booksmanage.dao
+jessie.booksmanage.pojo
+jessie.booksmanage.service
+jessie.booksmanage.service.impl
+jessie.booksmanage.utils
